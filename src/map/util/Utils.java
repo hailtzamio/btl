@@ -20,7 +20,7 @@ public class Utils {
         MyData myData = new MyData();
         try {
 
-            Path pathToFile = Paths.get("map1.txt");
+            Path pathToFile = Paths.get("map3.txt");
             System.out.println(pathToFile.toAbsolutePath());
 
             List<String> productLines = Files.readAllLines(pathToFile.toAbsolutePath(), StandardCharsets.UTF_8);
@@ -36,7 +36,6 @@ public class Utils {
                     float y1 = Float.parseFloat(tokens[2]);
                     float x2 = Float.parseFloat(tokens[3]);
                     float y2 = Float.parseFloat(tokens[4]);
-
                     int pointA = Integer.parseInt(tokens[5]);
                     int pointB = Integer.parseInt(tokens[6]);
                     int km = Integer.parseInt(tokens[7]);
@@ -46,18 +45,18 @@ public class Utils {
                 }
 
                 if(tokens[0].startsWith("point")) {
-                    float x = Float.parseFloat(tokens[1]);
-                    float y = Float.parseFloat(tokens[2]);
-                    float w = Float.parseFloat(tokens[3]);
-                    float h = Float.parseFloat(tokens[4]);
-                    Position myPoint = new Position(new Ellipse2D.Float(x,y,w,h));
+                    float x = Float.parseFloat(tokens[1]) + 100;
+                    float y = Float.parseFloat(tokens[2]) + 100;
+//                    float w = Float.parseFloat(tokens[3]);
+//                    float h = Float.parseFloat(tokens[4]);
+                    Position myPoint = new Position(new Ellipse2D.Float(x,y,20,20));
                     myPoints.add(myPoint);
                 }
 
             }
 
-            myData.setArrMyLine(myLines);
-            myData.setArrMyPoint(myPoints);
+            myData.setPathzs(myLines);
+            myData.setPositions(myPoints);
 
             for (Pathz product : myLines) {
                 System.out.println(product.getStreetName());

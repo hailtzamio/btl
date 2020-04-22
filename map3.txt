@@ -1,0 +1,58 @@
+point-459-16-Nguyễn Thị Minh Khai_Đinh Tiên Hoàng
+point-459-16-Nguyễn Thị Minh Khai_Đinh Tiên Hoàng
+point-392-84-Nguyễn Thị Minh Khai_Mạc Đĩnh Chi
+point-339-142-Nguyễn Thị Minh Khai_Hai Bà Trưng
+point-303-183-Nguyễn Thị Minh Khai_Phạm Ngọc Thạch
+point-267-221-Nguyễn Thị Minh Khai_Pasteur
+point-238-253-Nguyễn Thị Minh Khai_Nam Kỳ Khởi Nghĩa
+point-201-290-Nguyễn Thị Minh Khai_Lê Quý Đôn
+point-359-53-Mạc Đĩnh Chi_Trần Cao Vân
+point-326-20-Mạc Đĩnh Chi_Nguyễn Đình Chiểu
+point-443-132-Mạc Đĩnh Chi_Lê Duẩn
+point-461-151-Mạc Đĩnh Chi_Nguyễn Du
+point-335-79-Phùng Khắc Khoan_Trần Cao Vân
+point-368-113-Phùng Khắc Khoan_Nguyễn Thị Minh Khai
+point-300-49-Phùng Khắc Khoan_Nguyễn Đình Chiểu
+point-305-111-Hai Bà Trưng_Trần Cao Vân
+point-270-81-Nguyễn Đình Chiều_Hai Bà Trưng
+point-420-159-Lê Duẩn_Lê Văn Hưu
+point-452-192-Lê Văn Hưu_Nguyễn Du
+point-368-166-Hai Bà Trưng_Nguyễn Văn Chiên
+point-391-186-Hai Bà Trưng_Lê Duẩn
+point-441-233-Hai Bà Trưng_Nguyễn Du
+point-477-267-Hai Bà Trưng_Lý Tự Trọng
+point-516-224-Lý Tự Trọng_Thái Văn Lung
+point-556-176-Lý Tự Trọng_Chu Mạnh Trinh
+point-494-118-Chu Mạnh Trinh_Nguyễn Du
+line-459-16-392-84-1-2-35-Nguyễn Thị Minh Khai
+line-459-16-392-84-1-2-35-Nguyễn Thị Minh Khai
+line-392-84-339-142-2-3-25-Nguyễn Thị Minh Khai
+line-339-142-303-183-3-4-13-Nguyễn Thị Minh Khai
+line-303-183-267-221-4-5-14-Nguyễn Thị Minh Khai
+line-267-221-238-253-5-6-14-Nguyễn Thị Minh Khai
+line-238-253-201-290-6-7-12-Nguyễn Thị Minh Khai
+line-392-84-359-53-2-8-13-Mạc Đĩnh Chi
+line-359-53-326-20-8-9-13-Mạc Đĩnh Chi
+line-392-84-443-132-2-10-2-Mạc Đĩnh Chi
+line-443-132-461-151-10-11-8-Mạc Đĩnh Chi
+line-368-113-335-79-13-12-13-Phùng Khắc Khoan
+line-335-79-359-53-12-8-1-Trần Cao Vân
+line-335-79-300-49-12-14-13-Phùng Khắc Khoan
+line-326-20-300-49-9-14-1-Nguyễn Đình Chiểu
+line-333-142-305-111-3-15-14-Hai Bà Trưng
+line-335-79-305-111-12-15-11-Trần Cao Vân
+line-305-111-270-81-15-16-14-Hai Bà Trưng
+line-270-81-300-29-16-14-12-Nguyễn Đình Chiểu
+line-443-132-420-159-10-17-1-Lê Duẩn
+line-420-159-452-192-17-18-13-Lê Văn Hưu
+line-452-192-461-151-18-11-12-Nguyễn Du
+line-339-142-368-166-3-19-11-Hai Bà Trưng
+line-368-166-391-186-19-20-1-Hai Bà Trưng
+line-391-186-420-159-20-17-11-Lê Duẩn
+line-391-186-441-233-20-21-18-Hai Bà Trưng
+line-441-233-452-192-21-18-14-Nguyễn Du
+line-477-267-441-233-22-21-16-Hai Bà Trưng
+line-516-224-477-267-23-22-18-Lý Tự Trọng
+line-556-176-516-224-24-23-2-Lý Tự Trọng
+line-494-118-556-176-25-24-28-Chu Mạnh Trinh
+line-494-118-461-151-25-11-16-Nguyễn Du

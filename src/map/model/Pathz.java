@@ -12,15 +12,18 @@ public class Pathz implements Serializable {
     private static final long serialVersionUID = 1L;
     private Line2D.Double l = new Line2D.Double();
     private int indexPointA, indexPointB;
-    private int cost;
+    private int path;
+
+
+
     private String streetName;
 
     final int barb = 10;
     final int r = 40;
     final double phi = Math.PI / 6;
 
-    public Pathz(Line2D.Double l, int indexPointA, int indexPointB, int cost, String streetName) {
-        this.cost = cost;
+    public Pathz(Line2D.Double l, int indexPointA, int indexPointB, int path, String streetName) {
+        this.path = path;
         this.indexPointA = indexPointA;
         this.indexPointB = indexPointB;
         this.l = l;
@@ -42,11 +45,11 @@ public class Pathz implements Serializable {
                          Color colorLine, int size, boolean type) {
         String c = "";
         String km = "";
-        if (cost < 0) {
+        if (path < 0) {
             c = "";
             km = "";
         } else {
-            km = cost + " km";
+            km = path + " km";
             c = streetName;
         }
 
@@ -54,7 +57,7 @@ public class Pathz implements Serializable {
         g.setStroke(new BasicStroke(size));
         double theta = Math.atan2(p2.y - p1.y, p2.x - p1.x);
         g.draw(l);
-        if (type && cost >= 0) {
+        if (type && path >= 0) {
             double x = p2.x - r * Math.cos(theta);
             double y = p2.y - r * Math.sin(theta);
             drawArrow(g, theta, x, y, colorLine, size);
@@ -124,12 +127,12 @@ public class Pathz implements Serializable {
         this.indexPointB = indexPointB;
     }
 
-    public int getCost() {
-        return cost;
+    public int getPath() {
+        return path;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setPath(int path) {
+        this.path = path;
     }
 
     public String getStreetName() {

@@ -6,29 +6,29 @@ import java.util.ArrayList;
 public class MyData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Position> arrMyPoint;
-	private ArrayList<Pathz> arrMyLine;
+	private ArrayList<Position> positions;
+	private ArrayList<Pathz> pathzs;
 
-	final int r = 15, r2 = 2 * r;
+	final int r = 10, r2 = 2 * r;
 
-	public ArrayList<Position> getArrMyPoint() {
-		return arrMyPoint;
+	public ArrayList<Position> getPositions() {
+		return positions;
 	}
 
-	public void setArrMyPoint(ArrayList<Position> arrMyPoint) {
-		this.arrMyPoint = arrMyPoint;
+	public void setPositions(ArrayList<Position> positions) {
+		this.positions = positions;
 	}
 
-	public ArrayList<Pathz> getArrMyLine() {
-		return arrMyLine;
+	public ArrayList<Pathz> getPathzs() {
+		return pathzs;
 	}
 
-	public void setArrMyLine(ArrayList<Pathz> arrMyLine) {
-		this.arrMyLine = arrMyLine;
+	public void setPathzs(ArrayList<Pathz> pathzs) {
+		this.pathzs = pathzs;
 	}
 
 	public MyData() {
-		arrMyPoint = new ArrayList<Position>();
-		arrMyLine = new ArrayList<Pathz>();
+		positions = new ArrayList<Position>();
+		pathzs = new ArrayList<Pathz>();
 	}
 }

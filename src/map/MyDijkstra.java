@@ -39,12 +39,12 @@ public class MyDijkstra {
 
 		for (int i = 1; i < pathzs.size(); i++) {
 			a[pathzs.get(i).getIndexPointA()][pathzs.get(i)
-					.getIndexPointB()] = pathzs.get(i).getCost();
+					.getIndexPointB()] = pathzs.get(i).getPath();
 			if (!mapType) {
 				a[pathzs.get(i).getIndexPointB()][pathzs.get(i)
-						.getIndexPointA()] = pathzs.get(i).getCost();
+						.getIndexPointA()] = pathzs.get(i).getPath();
 			}
-			infinity += pathzs.get(i).getCost();
+			infinity += pathzs.get(i).getPath();
 		}
 	}
 
@@ -89,8 +89,8 @@ public class MyDijkstra {
 				if (!checkedPointMin[j] && len[i] + a[i][j] < len[j]) {
 					len[j] = len[i] + a[i][j];
 					p[j] = i;
-
 				}
+
 				logLen[k][j] = len[j];
 				logP[k][j] = p[j];
 			}

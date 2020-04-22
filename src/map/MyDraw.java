@@ -7,14 +7,12 @@ import map.util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
+class MyDraw extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
     private MyData data = new MyData();
     private ArrayList<Integer> arrPointResultStep = new ArrayList<Integer>();
@@ -45,6 +43,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
     public MyDraw() {
         addMouseMotionListener(this);
         addMouseListener(this);
+        addMouseWheelListener(this);
     }
 
     public void paintComponent(Graphics g) {
@@ -78,7 +77,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
         if (draw == 1) {
             Ellipse2D.Float el = new Ellipse2D.Float(x - r, y - r, r2, r2);
             Position mp = new Position(el);
-            data.getArrMyPoint().add(mp);
+            data.getPositions().add(mp);
             repaint();
         }
 
@@ -94,19 +93,38 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
         point = e.getPoint();
         e.getPoint();
         e.getPoint();
-        data.getArrMyPoint().get(indexTemp).getEl().x = e.getX() - r;
-        data.getArrMyPoint().get(indexTemp).getEl().y = e.getY() - r;
+        data.getPositions().get(indexTemp).getEl().x = e.getX() - r;
+        data.getPositions().get(indexTemp).getEl().y = e.getY() - r;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        data.getArrMyLine()
+        data.getPathzs()
                 .get(indexTemp)
                 .setIndexPointA(
-                        data.getArrMyLine().get(indexTemp).getIndexPointB());
+                        data.getPathzs().get(indexTemp).getIndexPointB());
         updateLine();
         repaint();
         isFindPoint = true;
+    }
+
+    private double zoomFactor = 1;
+    private double prevZoomFactor = 1;
+    private boolean zoomer;
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        //Zoom in
+        zoomer = true;
+        //Zoom in
+        if (e.getWheelRotation() < 0) {
+            zoomFactor *= 1.1;
+            repaint();
+        }
+        //Zoom out
+        if (e.getWheelRotation() > 0) {
+            zoomFactor /= 1.1;
+            repaint();
+        }
     }
 
     @Override
@@ -133,23 +151,23 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
             int dy = e.getY() - point.y;
 
             if ((draw == 1 || draw == 3) && indexPointBeginLine > 0) {
-                Ellipse2D.Float el = data.getArrMyPoint()
+                Ellipse2D.Float el = data.getPositions()
                         .get(indexPointBeginLine).getEl();
 
                 el.x += dx;
                 el.y += dy;
-                data.getArrMyPoint().get(indexPointBeginLine).setEl(el);
+                data.getPositions().get(indexPointBeginLine).setEl(el);
             }
 
             if (draw == 2 && indexPointBeginLine >= 0) {
                 checkDrawLine = true;
-                data.getArrMyLine().get(indexTemp)
+                data.getPathzs().get(indexTemp)
                         .setIndexPointA(indexPointBeginLine);
-                Ellipse2D.Float el = data.getArrMyPoint().get(indexTemp)
+                Ellipse2D.Float el = data.getPositions().get(indexTemp)
                         .getEl();
                 el.x += dx;
                 el.y += dy;
-                data.getArrMyPoint().get(indexTemp).setEl(el);
+                data.getPositions().get(indexTemp).setEl(el);
             }
             updateLine();
             repaint();
@@ -163,8 +181,8 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
     }
 
     protected int indexPointContain(Point point) {
-        for (int i = 1; i < data.getArrMyPoint().size(); i++) {
-            if (data.getArrMyPoint().get(i).getEl().getBounds2D()
+        for (int i = 1; i < data.getPositions().size(); i++) {
+            if (data.getPositions().get(i).getEl().getBounds2D()
                     .contains(point)) {
                 return i;
             }
@@ -178,15 +196,15 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
     }
 
     private void updateLine() {
-        for (int i = 0; i < data.getArrMyLine().size(); i++) {
-            data.getArrMyLine()
+        for (int i = 0; i < data.getPathzs().size(); i++) {
+            data.getPathzs()
                     .get(i)
                     .setL(creatLine(
-                            data.getArrMyPoint()
-                                    .get(data.getArrMyLine().get(i)
+                            data.getPositions()
+                                    .get(data.getPathzs().get(i)
                                             .getIndexPointA()).getP(),
-                            data.getArrMyPoint()
-                                    .get(data.getArrMyLine().get(i)
+                            data.getPositions()
+                                    .get(data.getPathzs().get(i)
                                             .getIndexPointB()).getP()));
         }
     }
@@ -198,22 +216,13 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
 
     private void reDraw(Graphics2D g2d, boolean checkReDraw) {
         resetGraph(g2d);
-        for (int i = 0; i < data.getArrMyLine().size(); i++) {
-            data.getArrMyLine()
-                    .get(i)
-                    .drawLine(
-                            g2d,
-                            data.getArrMyPoint()
-                                    .get(data.getArrMyLine().get(i)
-                                            .getIndexPointA()).getP(),
-                            data.getArrMyPoint()
-                                    .get(data.getArrMyLine().get(i)
-                                            .getIndexPointB()).getP(),
+        for (int i = 0; i < data.getPathzs().size(); i++) {
+            data.getPathzs().get(i).drawLine(g2d, data.getPositions().get(data.getPathzs().get(i).getIndexPointA()).getP(), data.getPositions().get(data.getPathzs().get(i).getIndexPointB()).getP(),
                             colorCost, colorDraw, sizeLine, typeMap);
         }
 
-        for (int i = 1; i < data.getArrMyPoint().size(); i++) {
-            data.getArrMyPoint().get(i).draw(g2d, i, colorDraw, colorIndex);
+        for (int i = 1; i < data.getPositions().size(); i++) {
+            data.getPositions().get(i).draw(g2d, i, colorDraw, colorIndex);
         }
     }
 
@@ -223,15 +232,15 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
             int i = indexEndPoint;
             while (i != indexBeginPoint) {
                 cost = String.valueOf(len[i]);
-                Pathz ml = new Pathz(creatLine(data.getArrMyPoint().get(p[i])
-                        .getP(), data.getArrMyPoint().get(i).getP()), i, p[i],
+                Pathz ml = new Pathz(creatLine(data.getPositions().get(p[i])
+                        .getP(), data.getPositions().get(i).getP()), i, p[i],
                         a[p[i]][i],"");
 
-                ml.drawLine(g2d, data.getArrMyPoint().get(p[i]).getP(), data
-                                .getArrMyPoint().get(i).getP(), colorCost, colorResult,
+                ml.drawLine(g2d, data.getPositions().get(p[i]).getP(), data
+                                .getPositions().get(i).getP(), colorCost, colorResult,
                         sizeLineResult, typeMap);
 
-                data.getArrMyPoint()
+                data.getPositions()
                         .get(i)
                         .drawResult(g2d, i, colorResult, colorIndex, cost,
                                 colorResult);
@@ -240,7 +249,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
             }
 
             cost = String.valueOf(len[i]);
-            data.getArrMyPoint()
+            data.getPositions()
                     .get(indexBeginPoint)
                     .drawResult(g2d, indexBeginPoint, colorResult, colorIndex,
                             cost, colorResult);
@@ -248,20 +257,20 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
     }
 
     private void drawResultAllPoint(Graphics2D g2d) {
-        int size = data.getArrMyPoint().size() - 1;
+        int size = data.getPositions().size() - 1;
         String cost;
         for (int i = 1; i <= size; i++) {
             if (i != indexBeginPoint && a[p[i]][i] < infinity && p[i] > 0) {
                 cost = len[i] + "";
-                Pathz ml = new Pathz(creatLine(data.getArrMyPoint().get(p[i])
-                        .getP(), data.getArrMyPoint().get(i).getP()), i, p[i],
+                Pathz ml = new Pathz(creatLine(data.getPositions().get(p[i])
+                        .getP(), data.getPositions().get(i).getP()), i, p[i],
                         a[p[i]][i], "");
 
-                ml.drawLine(g2d, data.getArrMyPoint().get(p[i]).getP(), data
-                                .getArrMyPoint().get(i).getP(), colorCost, colorResult,
+                ml.drawLine(g2d, data.getPositions().get(p[i]).getP(), data
+                                .getPositions().get(i).getP(), colorCost, colorResult,
                         sizeLineResult, typeMap);
 
-                data.getArrMyPoint()
+                data.getPositions()
                         .get(i)
                         .drawResult(g2d, i, colorResult, colorIndex, cost,
                                 colorResult);
@@ -270,7 +279,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
         }
 
         cost = "0";
-        data.getArrMyPoint()
+        data.getPositions()
                 .get(indexBeginPoint)
                 .drawResult(g2d, indexBeginPoint, colorResult, colorIndex,
                         cost, colorResult);
@@ -282,25 +291,25 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
         for (int i = 0; i < arrPointResultStep.size(); i++) {
             if ((indexEndPoint != -1 && !checkedPointMin[indexEndPoint])
                     || indexEndPoint == -1) {
-                for (int j = 1; j < data.getArrMyPoint().size(); j++) {
+                for (int j = 1; j < data.getPositions().size(); j++) {
                     cost = String.valueOf(len[j]);
                     if (p[j] > 0 && a[p[j]][j] < infinity
                             && a[arrPointResultStep.get(i)][j] < infinity
                             && !checkedPointMin[j]) {
 
-                        Pathz ml = new Pathz(creatLine(data.getArrMyPoint()
-                                .get(p[j]).getP(), data.getArrMyPoint().get(j)
+                        Pathz ml = new Pathz(creatLine(data.getPositions()
+                                .get(p[j]).getP(), data.getPositions().get(j)
                                 .getP()), p[j], j,
                                 a[arrPointResultStep.get(i)][j], "");
 
                         ml.drawLine(
                                 g2d,
-                                data.getArrMyPoint()
+                                data.getPositions()
                                         .get(arrPointResultStep.get(i)).getP(),
-                                data.getArrMyPoint().get(j).getP(), colorCost,
+                                data.getPositions().get(j).getP(), colorCost,
                                 colorStep, sizeLine, typeMap);
 
-                        data.getArrMyPoint()
+                        data.getPositions()
                                 .get(j)
                                 .drawResult(g2d, j, colorStep, colorIndex,
                                         cost, colorStep);
@@ -312,17 +321,17 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
             if (p[arrPointResultStep.get(i)] > 0) {
                 cost = String.valueOf(len[arrPointResultStep.get(i)]);
                 Pathz ml = new Pathz(creatLine(
-                        data.getArrMyPoint().get(p[arrPointResultStep.get(i)])
+                        data.getPositions().get(p[arrPointResultStep.get(i)])
                                 .getP(),
-                        data.getArrMyPoint().get(arrPointResultStep.get(i))
+                        data.getPositions().get(arrPointResultStep.get(i))
                                 .getP()), p[arrPointResultStep.get(i)], i,
                         a[p[arrPointResultStep.get(i)]][arrPointResultStep
                                 .get(i)],"");
 
                 ml.drawLine(g2d,
-                        data.getArrMyPoint().get(p[arrPointResultStep.get(i)])
+                        data.getPositions().get(p[arrPointResultStep.get(i)])
                                 .getP(),
-                        data.getArrMyPoint().get(arrPointResultStep.get(i))
+                        data.getPositions().get(arrPointResultStep.get(i))
                                 .getP(), colorStepMin, colorStepMin, sizeLine,
                         typeMap);
 
@@ -334,7 +343,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
         for (int i = 0; i < arrPointResultStep.size(); i++) {
             if (p[arrPointResultStep.get(i)] < infinity) {
                 cost = String.valueOf(len[arrPointResultStep.get(i)]);
-                data.getArrMyPoint()
+                data.getPositions()
                         .get(arrPointResultStep.get(i))
                         .drawResult(g2d, arrPointResultStep.get(i),
                                 colorStepMin, colorIndex, cost, colorStepMin);
@@ -346,15 +355,15 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
             int i = indexEndPoint;
             while (i != indexBeginPoint) {
                 cost = String.valueOf(len[i]);
-                Pathz ml = new Pathz(creatLine(data.getArrMyPoint().get(i)
-                        .getP(), data.getArrMyPoint().get(p[i]).getP()), i,
+                Pathz ml = new Pathz(creatLine(data.getPositions().get(i)
+                        .getP(), data.getPositions().get(p[i]).getP()), i,
                         p[i], a[p[i]][i],  "hailt");
 
-                ml.drawLine(g2d, data.getArrMyPoint().get(p[i]).getP(), data
-                                .getArrMyPoint().get(i).getP(), colorCost, colorResult,
+                ml.drawLine(g2d, data.getPositions().get(p[i]).getP(), data
+                                .getPositions().get(i).getP(), colorCost, colorResult,
                         sizeLineResult, typeMap);
 
-                data.getArrMyPoint()
+                data.getPositions()
                         .get(i)
                         .drawResult(g2d, i, colorResult, colorIndex, cost,
                                 colorResult);
@@ -362,7 +371,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
                 i = p[i];
             }
             cost = String.valueOf(len[i]);
-            data.getArrMyPoint()
+            data.getPositions()
                     .get(indexBeginPoint)
                     .drawResult(g2d, indexBeginPoint, colorResult, colorIndex,
                             cost, colorResult);
@@ -512,5 +521,6 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
     public void setDraw(int draw) {
         this.draw = draw;
     }
+
 
 }

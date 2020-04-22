@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,9 @@ public class MapLayout extends JFrame implements ActionListener {
     private JFrame frameAbout, frameHelp;
     private String data[][], head[];
 
-    private JComboBox<String> cbbBeginPoint = new JComboBox<String>();
-    private JComboBox<String> cbbEndPoint = new JComboBox<String>();
     private JComboBox<String> cbbGraphDemo = new JComboBox<String>();
 
-    private JButton btnRunAll, btnRunStep;
+    private JButton btnRunAll, btnRunStep,btnSearch;
     private JPanel drawPanel = new JPanel();
     private MyDraw myDraw = new MyDraw();
 
@@ -75,27 +74,9 @@ public class MapLayout extends JFrame implements ActionListener {
         JPanel panelTop = new JPanel(new GridLayout(6, 1, 5, 5));
         JPanel panelBottom = new JPanel(new BorderLayout());
 
-        JPanel panelSelectPointTemp = new JPanel(new GridLayout(1, 2, 15, 5));
-        panelSelectPointTemp.setBorder(new EmptyBorder(0, 15, 0, 5));
-        panelSelectPointTemp.add(cbbBeginPoint = CustomComboxBox("Bắt đầu"));
-        panelSelectPointTemp.add(cbbEndPoint = CustomComboxBox("Kết thúc"));
-        JPanel panelSelectPoint = new JPanel(new BorderLayout());
-        panelSelectPoint.setBorder(new TitledBorder("Vị trí"));
-        panelSelectPoint.add(panelSelectPointTemp);
-
-        JPanel panelRunTemp = new JPanel(new GridLayout(1, 2, 15, 5));
-        panelRunTemp.setBorder(new EmptyBorder(0, 15, 0, 5));
-        panelRunTemp.add(btnRunAll = CustomButton("Tìm"));
-        panelRunTemp.add(btnRunStep = CustomButton("Từng Bước"));
-        JPanel panelRun = new JPanel(new BorderLayout());
-        panelRun.setBorder(new TitledBorder("Tìm đường"));
-        panelRun.add(panelRunTemp);
-
-        panelTop.add(panelSelectPoint);
-        panelTop.add(panelRun);
-
-        makeJTextFieldGoFrom(panelTop, "Điểm đi");
-        makeJTextFieldGoFrom(panelTop, "Điểm đến");
+        makeJTextFieldGoFrom(panelTop, "Điểm đi",tfBegin);
+        makeJTextFieldGoFrom(panelTop, "Điểm đến",tfEnd);
+        makeSearchButton(panelTop);
 
         panel.add(panelTop, BorderLayout.PAGE_START);
         panel.add(panelBottom, BorderLayout.CENTER);
@@ -105,25 +86,37 @@ public class MapLayout extends JFrame implements ActionListener {
         return panel;
     }
 
-    private void makeJTextFieldGoFrom(JPanel panelTop, String title) {
+    private void makeJTextFieldGoFrom(JPanel panelTop, String title,JTextField tf) {
         JPanel panelSmall = new JPanel(new GridLayout(1, 2, 15, 5));
         panelSmall.setBorder(new EmptyBorder(0, 15, 0, 5));
-        setupSuggestJTextField(panelSmall);
+        setupSuggestJTextField(panelSmall,tf);
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new TitledBorder(title));
         panel.add(panelSmall);
         panelTop.add(panel);
     }
-
-    private void setupSuggestJTextField(JPanel panel) {
-        JTextField textField = new JTextField(10);
-        SuggestionDropDownDecorator.decorate(textField,
+    JTextField tfBegin =  new JTextField(10);
+    JTextField tfEnd = new JTextField(10);
+    private void setupSuggestJTextField(JPanel panel,JTextField tf) {
+        SuggestionDropDownDecorator.decorate(tf,
                 new TextComponentSuggestionClient(MapLayout::getSuggestions));
         JTextPane textPane = new JTextPane();
         SuggestionDropDownDecorator.decorate(textPane,
                 new TextComponentWordSuggestionClient(MapLayout::getSuggestions));
-        panel.add(textField);
+        panel.add(tf);
     }
+
+    private void makeSearchButton(JPanel panel) {
+        JPanel panelRunTemp = new JPanel(new GridLayout(1, 2, 15, 5));
+        panelRunTemp.setBorder(new EmptyBorder(0, 15, 0, 5));
+        panelRunTemp.add(btnSearch = CustomButton("Tìm"));
+        JPanel panelRun = new JPanel(new BorderLayout());
+        panelRun.setBorder(new TitledBorder("Tìm đường"));
+        panelRun.add(panelRunTemp);
+        panel.add(panelRun);
+    }
+
+
 
     private JPanel creatPaintPanel() {
         drawPanel.setLayout(new BoxLayout(drawPanel, BoxLayout.Y_AXIS));
@@ -160,7 +153,7 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
     private void updateView() {
-        updateListPoint();
+        makeSuggestBegin();
         resetDataDijkstra();
         setDrawResultOrStep(false);
         reDraw();
@@ -182,31 +175,12 @@ public class MapLayout extends JFrame implements ActionListener {
         reDraw();
     }
 
-    private void updateListPoint() {
-        int size = myDraw.getData().getArrMyPoint().size();
-        String listPoint[] = new String[size];
-        listPoint[0] = "Begin";
-        for (int i = 1; i < listPoint.length; i++) {
-            listPoint[i] = String.valueOf(i);
+    static ArrayList<String> suggestList = new ArrayList<>();
+    private void makeSuggestBegin() {
+        int size = myDraw.getData().getPositions().size();
+        for (int i = 0; i < size; i++) {
+            suggestList.add(String.valueOf(i));
         }
-
-        cbbBeginPoint.setModel(new DefaultComboBoxModel<String>(listPoint));
-        cbbBeginPoint.setMaximumRowCount(5);
-
-        if (size > 1) {
-            listPoint = new String[size + 1];
-            listPoint[0] = "End";
-            for (int i = 1; i < listPoint.length; i++) {
-                listPoint[i] = String.valueOf(i);
-            }
-            listPoint[listPoint.length - 1] = "All";
-        } else {
-            listPoint = new String[1];
-            listPoint[0] = "End";
-        }
-
-        cbbEndPoint.setModel(new DefaultComboBoxModel<String>(listPoint));
-        cbbEndPoint.setMaximumRowCount(5);
     }
 
     private void setEnableDraw(boolean check, String matrix) {
@@ -230,8 +204,8 @@ public class MapLayout extends JFrame implements ActionListener {
         step = 0;
         dijkstra = new MyDijkstra();
         dijkstra.setMapType(mapType);
-        dijkstra.setArrMyPoint(myDraw.getData().getArrMyPoint());
-        dijkstra.setArrMyLine(myDraw.getData().getArrMyLine());
+        dijkstra.setArrMyPoint(myDraw.getData().getPositions());
+        dijkstra.setArrMyLine(myDraw.getData().getPathzs());
         dijkstra.input();
         dijkstra.processInput();
     }
@@ -248,9 +222,9 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
     private boolean checkRun() {
-        int size = myDraw.getData().getArrMyPoint().size() - 1;
-        indexBeginPoint = cbbBeginPoint.getSelectedIndex();
-        indexEndPoint = cbbEndPoint.getSelectedIndex();
+        int size = myDraw.getData().getPositions().size() - 1;
+        indexBeginPoint = Integer.parseInt(tfBegin.getText());
+        indexEndPoint = Integer.parseInt(tfEnd.getText());
         if (indexEndPoint == size + 1) {
             indexEndPoint = -1;
         }
@@ -321,15 +295,15 @@ public class MapLayout extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (e.getSource() == cbbBeginPoint || e.getSource() == cbbEndPoint) {
-            actionChoosePoint();
-        }
-
         if (e.getSource() == btnRunStep) {
             runStep();
         }
 
         if (e.getSource() == btnRunAll) {
+            runAll();
+        }
+
+        if (e.getSource() == btnSearch) {
             runAll();
         }
 
@@ -362,7 +336,7 @@ public class MapLayout extends JFrame implements ActionListener {
         if (input.isEmpty()) {
             return null;
         }
-        return words.stream()
+        return suggestList.stream()
                 .filter(s -> s.startsWith(input))
                 .limit(20)
                 .collect(Collectors.toList());

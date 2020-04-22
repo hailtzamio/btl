@@ -2,7 +2,6 @@ package map.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 
@@ -12,7 +11,7 @@ public class Position implements Serializable {
 	private java.awt.Point p = new java.awt.Point();
 	private  String name;
 
-	final int r = 15;
+	final int r = 10;
 
 	public void drawIndex(Graphics2D g, int index, Color colorIndex) {
 		g.setColor(colorIndex);
@@ -26,7 +25,7 @@ public class Position implements Serializable {
 				+ startY);
 	}
 
-	public void drawCost(Graphics2D g, String cost, Color colorCostResult) {
+	public void drawPath(Graphics2D g, String cost, Color colorCostResult) {
 		g.setColor(colorCostResult);
 		g.drawString(String.valueOf(10), (int) p.x - r / 5, (int) p.y - r);
 	}
@@ -39,13 +38,13 @@ public class Position implements Serializable {
 	public void drawIndexCost(Graphics2D g, int index, String cost,
 			Color colorIndex, Color colorCostResult) {
 		drawIndex(g, index, colorIndex);
-		drawCost(g, cost, colorCostResult);
+		drawPath(g, cost, colorCostResult);
 	}
 
 	public void drawResult(Graphics2D g, int index, Color colorPoint, Color colorIndex, String cost, Color colorCostResult) {
 		drawPoint(g, index, colorPoint);
 		drawIndex(g, index, colorIndex);
-		drawCost(g, cost, colorCostResult);
+		drawPath(g, cost, colorCostResult);
 	}
 
 	public void draw(Graphics2D g, int index, Color colorPoint, Color colorIndex) {
