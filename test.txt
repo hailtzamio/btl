@@ -1,0 +1,410 @@
+point-393.0-321.0-note
+point-459-16-Nguyễn Thị Minh Khai_Đinh Tiên Hoàng
+point-392-84-Nguyễn Thị Minh Khai_Mạc Đĩnh Chi
+point-339-142-Nguyễn Thị Minh Khai_Hai Bà Trưng
+point-303-183-Nguyễn Thị Minh Khai_Phạm Ngọc Thạch
+point-267-221-Nguyễn Thị Minh Khai_Pasteur
+point-238-253-Nguyễn Thị Minh Khai_Nam Kỳ Khởi Nghĩa
+point-201-290-Nguyễn Thị Minh Khai_Lê Quý Đôn
+point-359-53-Mạc Đĩnh Chi_Trần Cao Vân
+point-326-20-Mạc Đĩnh Chi_Nguyễn Đình Chiểu
+point-443-132-Mạc Đĩnh Chi_Lê Duẩn
+point-461-151-Mạc Đĩnh Chi_Nguyễn Du
+point-335-79-Phùng Khắc Khoan_Trần Cao Vân
+point-368-113-Phùng Khắc Khoan_Nguyễn Thị Minh Khai
+point-300-49-Phùng Khắc Khoan_Nguyễn Đình Chiểu
+point-305-111-Hai Bà Trưng_Trần Cao Vân
+point-270-81-Nguyễn Đình Chiều_Hai Bà Trưng
+point-420-159-Lê Duẩn_Lê Văn Hưu
+point-452-192-Lê Văn Hưu_Nguyễn Du
+point-368-166-Hai Bà Trưng_Nguyễn Văn Chiêm
+point-391-186-Hai Bà Trưng_Lê Duẩn
+point-441-233-Hai Bà Trưng_Nguyễn Du
+point-477-267-Hai Bà Trưng_Lý Tự Trọng
+point-516-224-Lý Tự Trọng_Thái Văn Lung
+point-556-176-Lý Tự Trọng_Chu Mạnh Trinh
+point-494-118-Chu Mạnh Trinh_Nguyễn Du
+point-481-39-Đinh Tiên Hoàng_Hẻm 45
+point-453-69-Hẻm 45
+point-505-62-Đinh Tiên Hoàng_Lê Duẩn_Tôn Đức Thắng
+point-525-82-Tôn Đức Thắng_Nguyễn Du
+point-573-123-Tôn Đức Thắng_Nguyễn Trung Ngạn
+point-540-160-Chu Mạnh Trinh_Nguyễn Trung Ngạn
+point-591-139-Tôn Đức Thắng_Lý Tự Trọng
+point-434-40-Nguyễn Thị Minh Khai_Hẻm 18
+point-395-2-Hẻm 18
+point-410-66-Nguyễn Thị Minh Khai_Hẻm 18B15
+point-373-30-Hẻm 18B15
+point-583-192-Chu Mạnh Trinh_Lê Thánh Tôn
+point-557-224-Lê Thánh Tôn_Hẻm 15B
+point-588-248-Hẻm 15B
+point-544-237-Lê Thánh Tôn_Hẻm 8A
+point-577-261-Hẻm 8A
+point-537-248-Lê Thánh Tôn_Thái Văn Lung
+point-558-264-Thái Văn Lung_Hẻm 8A
+point-493-179-Bệnh Viện Nhi Đồng 2
+point-334-176-Nhà văn hoá Thanh Niên
+point-524-264-Lê Thánh Tôn_Thi Sách
+point-501-289-Hai Bà Trưng-Lê Thánh Tôn
+point-572-277-Thái Văn Lung_Cao bá Quát
+point-556-294-Thi Sách_Cao Bá Quát
+point-534-317-Hai Bà Trưng_Cao Bá Quát
+point-331-206-Phạm Ngọc Thạch_Nguyễn Văn Chiêm
+point-299-251-Pasteur_Alexandre De Rhodes
+point-267-284-Nam Kỳ Khởi Nghĩa_Alexandre De Rhodes
+point-361-222-Lê Duẩn_BB1_1
+point-347-226-Phạm Ngọc Thạch_BB1
+point-349-238-Lê Duẩn_BB1_2
+point-319-270-Lê Duẩn_Pasteur
+point-287-300-Nam Kỳ Khởi Nghĩa_Lê Duẩn
+point-366-255-Công xã Paris_Hàn Thuyên
+point-336-285-Hàn Thuyên_Pasteur
+point-303-316-Nam Kỳ Khởi Nghĩa_Hàn Thuyên
+point-378-238-Công xã Paris_Nguyễn Văn Bình
+point-411-205-Hai Bà Trưng_Nguyễn Văn Bình
+point-404-266-Nguyễn Du_Công xã Paris
+point-401-273-Nguyễn Du_Đồng Khởi
+point-395-279-Nguyễn Du_Công xã Paris
+point-366-313-Nguyễn Du_Pasteur
+point-439-308-Đồng Khởi_Lý Tự Trọng
+point-403-343-Lý Tự Trọng_Pasteur
+point-463-332-Đồng Khởi_Lê Thánh Tôn
+point-542-329-Hai Bà Trưng_Nguyễn Siêu
+point-565-303-Nguyễn Siêu_Thi Sách
+point-581-286-Nguyễn Siêu_Thái Văn Lung
+point-606-258-Nguyễn Siêu
+point-596-331-Thi Sách_Đông Du
+point-609-311-Thái Văn Lung
+point-594-181-Ngô Văn Nam_Lê Thánh Tôn
+point-609-198-Ngô Văn Nam
+point-610-159-Tôn Đức Thắng_Lê Thánh Tôn
+point-581-166-Hẻm 8
+point-336-339-Nguyễn Du_Nam Kỳ Khởi Nghĩa
+point-315-325-Nam Kỳ Khởi Nghĩa_Hẻm 7
+point-333-307-Hẻm 7
+point-343-317-Hẻm 7/1
+point-570-1-Lê Duẩn_Nguyễn Bình Khiêm
+point-610-30-Nguyễn Bình Khiêm
+point-599-95-Tôn Đức Thắng_Hẻm 5
+point-580-75-Hẻm 5/1_Hẻm 5/1A
+point-603-54-Hẻm 5/1A
+point-563-58-Hẻm 5/1_Hẻm 5/1B
+point-586-38-Hẻm 5/1B
+point-173-323-Nguyễn Thị Minh Khai_Huyền Trân Công Chúa
+point-192-343-Huyền Trân Công Chúa
+point-233-47-Hai Bà Trưng_Nguyễn Văn Thủ
+point-265-17-Nguyễn văn Thủ_Phùng Khắc Khoan
+point-207-32-Hai Bà Trưng_Hẻm 193
+point-196-43-Hẻm 193_1
+point-194-20-Hai Bà Trưng_Điện Biên Phủ
+point-183-32-Điện Biên Phủ_Hẻm 193
+point-214-1-Điện Biên Phủ
+point-169-1-Hai Bà Trưng
+point-154-12-Trương Quyền_Hẻm 66
+point-165-52-Điện Biên Phủ_Phạm Ngọc Thạch
+point-236-119-Phạm Ngọc Thạch_Nguyễn Đình Chiểu
+point-258-140-Phạm Ngọc Thạch_HCR1
+point-280-139-Trần Cao Vân_HCR
+point-280-161-Phạm Ngọc Thạch_HCR2
+point-258-162-Võ Văn Tần_HCR
+point-234-189-Võ Văn Tần_Pasteur
+point-203-221-Võ Văn Tần_Nam Kỳ Khởi Nghĩa
+point-169-259-Võ Văn Tần_Lê Quý Đôn
+point-313-301-Võ Văn Tần_Trần Quốc Thảo
+point-94-342-Võ Văn Tần_Trương Định
+point-76-327-Nguyễn Thị Diệu_Trương Định
+point-59-343-Nguyễn Thị Diệu
+point-199-159-Pasteur_Nguyễn Đình Chiểu
+point-169-190-Nguyễn Đình Chiểu_Nam Kỳ Khởi Nghĩa
+point-134-227-Nguyễn Đình Chiểu_Lê Quý Đôn
+point-97-268-Nguyễn Đình Chiểu_Trần Quốc Thảo
+point-76-289-Nguyễn Đình Chiểu_Nguyễn Gia Thiều
+point-57-309-Trương Định_Nguyễn Đình Chiểu
+point-20-343-Nguyễn Đình Chiểu
+point-8-336-Bà Huyện Thanh Quan_Hồ Xuân Hương
+point-45-297-Hồ Xuân Hương_Trương Định
+point-18-273-Trương Định_Ngô Thời Nhiệm
+point-1-290-Ngô Thời Nhiệm
+point-39-252-Ngô Thời Nhiệm_Nguyễn Gia Thiều
+point-46-246-Ngô Thời Nhiệm_Hẻm 18
+point-35-234-Hẻm 18_1
+point-18-248-Hẻm 18_2
+point-58-231-Trần Quốc Thảo_Ngô Thời Nhiệm
+point-77-212-Ngô Thời Nhiệm_Hẻm 6
+point-67-202-Hẻm 6
+point-97-191-Lê Quý Đôn_Ngô Thời Nhiệm
+point-41-215-Trần Quốc Thảo_Hẻm 6A_6B
+point-31-225-Hẻm 6A
+point-50-205-Hẻm 6B
+point-21-195-Điẹn Biên Phủ_Trần Quốc Thảo
+point-2-216-Điện Biên Phủ
+point-16-231-Hẻm 267
+point-1-171-Trần Quốc Thảo_Tú Xương
+point-60-158-Điện Biên Phủ_Lê Quý Đôn
+point-33-131-Lê Quý Đôn_Tú Xương
+point-97-123-Nam Kỳ Khởi Nghĩa_Điện Biên Phủ
+point-132-156-Nam Kỳ Khởi Nghĩa_Ngô Thời Nhiệm
+point-8-107-Lê Quý Đôn_Võ Thị Sáu
+point-1-115-Võ Thị Sáu
+point-43-69-Nam Kỳ Khởi Nghĩa_Võ Thị Sáu
+point-71-97-Nam Kỳ Khởi Nghĩa_Tú Xương
+point-1-29-Nam Kỳ Khởi Nghĩa
+point-71-39-Võ thị Sáu_Pasteur
+point-50-17-Hẻm 256-Pasteur
+point-29-1-Pasteur
+point-62-1-Hẻm 256
+point-113-77-Pasteur_Hẻm 230_1
+point-129-91-Điện Biên Phủ_Pasteur
+point-120-54-Hẻm 230_1
+point-131-41-Hẻm 230_2
+point-90-21-Võ Thị Sáu_Hẻm 230_2
+point-99-11-Võ Thị Sáu_Hẻm 160
+point-76-1-Hẻm 160
+point-110-2-Phạm Ngọc Thạch_Võ Thị Sáu
+point-139-28-Phạm Ngọc Thạch_Hẻm 66
+point-146-19-Hẻm 66_Hẻm 66A
+point-156-33-Hẻm 66A
+point-168-34-Hẻm 66A/1
+point-248-1-Phùng Khắc Khoan
+point-280-1-Nguyễn Văn Thủ
+point-307-1-Đinh Tiên Hoàng
+point-442-1-Nguyễn Đình Chiểu
+point-473-1-Nguyễn thị Minh Khai
+point-344-2-Mạc Đĩnh Chi
+point-63-178-Hẻm 6/1
+line-459-16-434-40-1-33-140-Nguyễn Thị Minh Khai
+line-392-84-368-113-2-13-130-Nguyễn Thị Minh Khai
+line-339-142-303-183-3-4-130-Nguyễn Thị Minh Khai
+line-303-183-267-221-4-5-140-Nguyễn Thị Minh Khai
+line-267-221-238-253-5-6-140-Nguyễn Thị Minh Khai
+line-238-253-201-290-6-7-120-Nguyễn Thị Minh Khai
+line-392-84-359-53-2-8-130-Mạc Đĩnh Chi
+line-359-53-326-20-8-9-130-Mạc Đĩnh Chi
+line-392-84-443-132-2-10-200-Mạc Đĩnh Chi
+line-443-132-461-151-10-11-80-Mạc Đĩnh Chi
+line-368-113-335-79-13-12-130-Phùng Khắc Khoan
+line-335-79-359-53-12-8-100-Trần Cao Vân
+line-335-79-300-49-12-14-130-Phùng Khắc Khoan
+line-326-20-300-49-9-14-100-Nguyễn Đình Chiểu
+line-333-142-305-111-3-15-140-Hai Bà Trưng
+line-335-79-305-111-12-15-110-Trần Cao Vân
+line-305-111-270-81-15-16-140-Hai Bà Trưng
+line-270-81-300-29-16-14-120-Nguyễn Đình Chiểu
+line-443-132-420-159-10-17-100-Lê Duẩn
+line-420-159-452-192-17-18-130-Lê Văn Hưu
+line-452-192-461-151-18-11-120-Nguyễn Du
+line-339-142-368-166-3-19-110-Hai Bà Trưng
+line-368-166-391-186-19-20-100-Hai Bà Trưng
+line-391-186-420-159-20-17-110-Lê Duẩn
+line-391-186-411-205-20-63-80-Hai Bà Trưng
+line-441-233-452-192-21-18-140-Nguyễn Du
+line-477-267-441-233-22-21-160-Hai Bà Trưng
+line-516-224-477-267-23-22-180-Lý Tự Trọng
+line-556-176-516-224-24-23-200-Lý Tự Trọng
+line-368-113-339-142-13-3-120-Nguyễn Thị Minh Khai
+line-494-118-461-151-25-11-160-Nguyễn Du
+line-481-39-459-16-26-1-120-Đinh Tiên Hoàng
+line-453-69-481-69-27-26-140-Hẻm 45
+line-505-62-481-39-28-26-120-Đinh Tiên Hoàng
+line-505-52-443-132-28-10-350-Lê Duẩn
+line-525-82-505-62-29-28-90-Tôn Đức Thắng
+line-525-82-494-118-29-25-150-Nguyễn Du
+line-573-123-525-82-30-29-150-Tôn Đức Thắng
+line-540-160-573-123-31-30-150-Nguyễn Trung Ngạn
+line-540-160-494-118-31-25-200-Chu Mạnh Trinh
+line-540-160-556-176-31-24-80-Chu Mạnh Trinh
+line-591-139-556-176-32-24-150-Lý Tự Trọng
+line-591-139-573-123-32-30-80-Tôn Đức Thắng
+line-395-2-434-40-34-33-150-Hẻm 18
+line-434-40-410-66-33-35-140-Nguyễn Thị Minh Khai
+line-410-66-392-84-35-2-70-Nguyễn Thị Minh Khai
+line-410-66-373-30-35-36-150-Hẻm 18B15
+line-583-192-556-176-37-24-120-Chu Mạnh Trinh
+line-557-224-538-192-38-37-140-Lê Thánh Tôn
+line-588-248-557-224-39-38-130-Hẻm 15B
+line-544-237-557-224-40-38-60-Lê Thánh Tôn
+line-577-261-544-237-41-40-150-Hẻm 8A
+line-537-248-544-237-42-40-40-Lê Thánh Tôn
+line-537-248-516-224-42-23-100-Thái Văn Lung
+line-558-264-577-261-43-41-30-Hẻm 8A/1
+line-577-261-588-248-41-39-20-Hẻm 8A/2
+line-524-264-558-264-46-43-40-Lê Thánh Tôn
+line-501-289-524-264-47-46-90-Lê Thánh Tôn
+line-501-289-477-267-47-22-80-Hai Bà Trưng
+line-572-277-558-264-48-43-30-Thái Văn Lung
+line-556-294-572-277-49-48-40-Cao Bá Quát
+line-556-294-524-264-49-46-120-Thi Sách
+line-534-317-556-294-50-49-100-Cao Bá Quát
+line-534-317-501-289-50-47-120-Hai Bà Trưng
+line-331-206-303-183-51-4-100-Phạm Ngọc Thạch
+line-331-206-303-183-51-4-100-Phạm Ngọc Thạch
+line-331-206-368-166-51-19-130-Nguyễn Văn Chiêm
+line-299-251-331-206-52-52-130-Alexandre De Rhodes
+line-299-251-267-221-52-5-100-Pasteur
+line-267-284-299-251-53-52-100-Alexandre De Rhodes
+line-267-284-238-253-53-6-100-Nam Kỳ Khởi Nghĩa
+line-361-222-391-186-54-20-110-Lê Duẩn
+line-347-226-331-206-55-51-40-Phạm Ngọc Thạch
+line-347-226-361-222-55-54-10-Vòng Xoay
+line-349-238-347-226-56-55-10-Vòng Xoay
+line-319-270-349-238-57-56-110-Lê Duẩn
+line-349-238-361-222-56-54-20-Vòng Xoay
+line-319-270-299-251-57-52-50-Pasteur
+line-287-300-319-270-58-57-100-Lê Duẩn
+line-287-300-267-284-58-53-50-Nam Kỳ Khởi Nghĩa
+line-366-255-349-238-59-56-50-Công Xã Paris
+line-336-285-266-255-60-59-100-Hàn Thuyên
+line-336-285-319-270-60-57-50-Pasteur
+line-303-316-287-300-61-58-50-Nam Kỳ Khởi Nghĩa
+line-378-238-361-222-62-54-50-Công Xã Paris
+line-411-205-378-238-63-62-110-Nguyễn Văn Bình
+line-441-233-411-205-21-63-100-Hai Bà Trưng
+line-404-266-378-238-64-62-100-Công Xã Paris
+line-404-266-441-233-64-21-100-Nguyễn Du
+line-401-273-404-266-65-64-10-Nguyễn Du
+line-401-273-395-279-65-66-10-Nguyễn Du
+line-395-279-366-255-66-59-100-Công Xã Paris
+line-395-279-366-313-66-67-100-Nguyễn Du
+line-366-313-336-285-67-60-100-Pasteur
+line-439-308-477-267-68-22-120-Lý Tự Trọng
+line-439-308-401-273-68-65-120-Đồng Khởi
+line-403-343-439-308-69-68-130-Lý Tự Trọng
+line-403-343-366-313-69-67-120-Pasteur
+line-463-332-439-308-70-68-110-Đồng Khởi
+line-463-332-501-289-70-47-130-Lê Thánh Tôn
+line-542-329-534-317-71-50-30-Hai Bà Trưng
+line-565-303-542-329-72-71-100-Nguyễn Siêu
+line-565-303-556-294-72-49-30-Thi Sách
+line-581-286-565-303-73-72-90-Nguyễn Siêu
+line-581-286-572-277-73-48-30-Thái Văn Lung
+line-606-258-581-286-74-73-110-Nguyễn Siêu
+line-596-331-565-303-75-72-120-Thi Sách
+line-609-311-581-286-76-73-120-Thái Văn Lung
+line-594-181-583-192-77-37-60-Lê Thánh Tôn
+line-609-198-594-181-78-77-120-Ngô Văn Nam
+line-610-159-594-181-79-77-80-Lê Thánh Tôn
+line-610-159-591-139-79-32-80-Tôn Đức Thắng
+line-581-166-594-181-80-77-50-Hẻm 8
+line-366-399-366-313-81-67-120-Nguyễn Du
+line-315-325-336-339-82-81-60-Nam Kỳ Khởi Nghĩa
+line-315-325-303-316-82-61-40-Nam Kỳ Khởi Nghĩa
+line-333-307-315-325-83-82-50-Hẻm 7
+line-343-317-333-307-84-83-30-Hẻm 7/1
+line-570-1-505-62-85-28-350-Lê Duẩn
+line-610-30-570-1-86-85-120-Nguyễn Bỉnh Khiêm
+line-599-95-573-123-87-30-100-Hẻm 5
+line-580-75-599-95-88-87-50-Hẻm 5/1
+line-603-54-580-75-89-88-50-Hẻm 5/1A
+line-563-58-580-75-90-88-30-Hẻm 5/1
+line-586-38-563-58-91-90-50-Hẻm 5/1B
+line-173-323-201-290-92-7-130-Nguyễn Thị Minh Khai
+line-192-343-173-323-93-92-50-Huyền Trân Công Chúa
+line-233-47-270-81-94-16-110-Hai Bà Trưng
+line-265-17-233-47-95-94-110-Nguyễn Văn Thủ
+line-265-17-300-49-95-14-120-Phùng Khắc Khoan
+line-207-32-233-47-96-94-70-Hai Bà Trưng
+line-196-43-207-32-97-96-20-Hẻm 193
+line-194-20-207-32-98-96-20-Hai Bà Trưng
+line-183-32-194-20-99-98-20-Điện Biên Phủ
+line-183-32-196-43-99-97-20-Hẻm 193
+line-214-1-194-20-100-98-90-Điện Biên Phủ
+line-169-1-194-20-101-98-110-Hai Bà Trưng
+line-154-12-183-32-102-99-120-Trương Quyền
+line-165-52-183-32-103-99-80-Điện Biên Phủ
+line-236-119-165-52-104-103-250-Phạm Ngọc Thạch
+line-236-119-270-81-104-16-130-Nguyễn Đình Chiểu
+line-258-140-236-119-105-104-100-Phạm Ngọc Thạch
+line-305-111-280-139-15-106-110-Trần Cao Vân
+line-280-139-258-140-106-105-40-Vòng Xoay Hồ Con Rùa
+line-303-183-280-161-4-107-100-Phạm Ngọc Thạch
+line-280-161-280-139-107-106-40-Vòng Xoay Hồ Con Rùa
+line-258-162-280-162-108-107-40-Vòng Xoay Hồ Con Rùa
+line-258-162-258-140-108-105-50-Vòng Xoay Hồ Con Rùa
+line-234-189-258-162-109-108-120-Võ Văn Tần
+line-203-221-234-189-110-109-120-Võ Văn Tần
+line-238-253-203-221-6-110-120-Nam Kỳ Khởi Nghĩa
+line-169-259-201-290-111-7-120-Lê Quý Đôn
+line-169-259-203-221-111-110-130-Võ Văn Tần
+line-131-301-169-259-112-111-130-Võ Văn tần
+line-94-342-131-301-113-112-120-Võ Văn Tần
+line-76-327-94-342-114-113-60-Trương Định
+line-59-343-76-327-115-114-80-Nguyễn Thị Diệu
+line-234-189-199-159-109-116-110-Pasteur
+line-236-119-199-159-104-116-130-Nguyễn Đình Chiểu
+line-203-221-169-190-110-117-110-Nam Kỳ Khởi Nghĩa
+line-169-190-199-159-117-116-110-Nguyễn Đình Chiểu
+line-134-227-169-190-118-117-120-Nguyễn Đình Chiểu
+line-169-259-134-227-111-118-110-Lê Quý Đôn
+line-97-268-134-227-119-118-120-Nguyễn Đình Chiểu
+line-313-301-97-268-112-119-110-Trần Quốc Thảo
+line-76-289-97-268-120-119-80-Nguyễn Đình Chiểu
+line-57-309-76-289-121-120-70-Nguyễn Đình Chiểu
+line-76-327-57-309-114-121-80-Trương Định
+line-20-343-57-309-122-121-120-Nguyễn Đình Chiểu
+line-8-336-20-343-123-122-40-Bà Huyện Thanh Quan
+line-8-336-45-297-123-124-120-Hồ Xuân Hương
+line-57-309-45-297-121-124-40-Trương Định
+line-18-273-45-297-125-124-100-Trương Định
+line-1-290-18-273-126-125-50-Ngô Thời Nhiệm
+line-39-252-76-289-127-120-130-Nguyễn Gia Thiều
+line-39-252-18-273-127-125-70-Ngô Thời Nhiệm
+line-46-246-39-252-128-127-20-Ngô Thời Nhiệm
+line-35-234-46-246-129-128-30-Hẻm 18
+line-18-248-35-234-130-129-50-Hẻm 18
+line-58-231-97-268-131-119-130-Trần Quốc Thảo
+line-58-231-46-246-131-128-50-Ngô Thời Nhiệm
+line-77-212-58-231-132-131-60-Ngô Thời Nhiệm
+line-67-202-77-212-133-132-40-Hẻm 6
+line-97-191-77-212-134-132-50-Ngô Thời Nhiệm
+line-134-227-97-191-118-134-110-Lê Quý Đôn
+line-41-215-58-231-135-131-60-Trần Quốc Thảo
+line-41-215-31-225-135-136-40-Hẻm 6A
+line-41-215-50-205-135-137-30-Hẻm 6B
+line-41-215-21-195-135-138-50-Trần Quốc Thảo
+line-2-216-21-195-139-138-100-Điện Biên Phủ
+line-16-231-2-216-140-139-50-Hẻm 267
+line-1-171-21-195-141-138-100-Trần Quốc Thảo
+line-60-158-21-195-142-138-120-Điện Biên Phủ
+line-60-158-97-191-142-134-120-Lê Quý Đôn
+line-60-158-33-131-142-143-100-Lê Quý Đôn
+line-33-131-1-171-143-141-120-Tú Xương
+line-97-123-60-158-144-142-120-Điện Biên Phủ
+line-132-156-97-123-145-144-110-Nam Kỳ Khởi Nghĩa
+line-132-156-169-190-145-117-120-Nam Kỳ Khởi Nghĩa
+line-132-156-97-191-145-134-120-Ngô Thời Nhiệm
+line-8-107-33-131-146-143-90-Lê Quý Đôn
+line-1-115-8-107-147-146-40-Võ Thị Sáu
+line-43-69-8-107-148-146-120-Võ Thị Sáu
+line-71-97-97-123-149-144-100-Nam Kỳ Khởi Nghĩa
+line-71-97-43-69-149-148-100-Nam Kỳ Khởi Nghĩa
+line-71-97-33-131-149-143-120-Tú Xương
+line-1-29-43-69-150-148-160-Nam Kỳ Khởi Nghĩa
+line-71-39-43-69-151-148-100-Võ Thị Sáu
+line-50-17-71-39-152-151-100-Pasteur
+line-29-1-50-17-153-152-80-Pasteur
+line-62-1-50-17-154-152-50-Hẻm 256
+line-71-39-113-77-151-155-120-Pasteur
+line-129-91-113-77-156-155-60-Pasteur
+line-129-91-199-159-156-116-250-Pasteur
+line-129-91-97-123-156-144-120-Điện Biên Phủ
+line-129-91-165-52-156-103-140-Điện Biên Phủ
+line-120-54-113-77-157-155-60-Hẻm 230
+line-131-41-130-54-158-157-40-Hẻm 230
+line-90-21-131-41-159-158-58-120-Hẻm 230
+line-90-21-71-39-159-151-60-Võ Thị Sáu
+line-99-11-90-21-160-159-10-Võ Thị Sáu
+line-76-1-99-11-161-160-50-Hẻm 160
+line-110-2-99-11-162-160-50-Võ Thị Sáu
+line-139-28-110-2-163-162-100-Phạm Ngọc Thạch
+line-139-28-165-52-163-103-100-Phạm Ngọc Thạch
+line-146-19-139-28-164-163-20-Hẻm 66
+line-146-19-154-12-164-102-20-Hẻm 66
+line-156-33-146-19-165-164-40-Hẻm 66A
+line-168-34-156-33-166-165-20-Hẻm 66A/1
+line-265-17-248-1-95-167-40-Phùng Khắc Khoan
+line-265-17-180-1-95-168-40-Nguyễn Văn Thủ
+line-459-16-307-1-1-169-40-Đinh Tiên Hoàng
+line-326-20-442-1-9-170-40-Nguyễn Đình Chiểu
+line-459-16-473-1-1-171-40-Nguyễn Thị Minh Khai
+line-326-20-344-2-9-172-40-Mạc Đĩnh Chi
+line-67-202-63-178-133-173-50-Hẻm 6/1

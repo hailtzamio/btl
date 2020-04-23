@@ -10,9 +10,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.io.*;
 import java.util.ArrayList;
 
-class MyDraw extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+class DrawMap extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
     private MyData data = new MyData();
     private ArrayList<Integer> arrPointResultStep = new ArrayList<Integer>();
@@ -26,11 +27,11 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
     private Point point;
     boolean checkDrawLine = false, isFindPoint = true;
     private int draw = 0;
-    private Color colorBackGround = Color.lightGray, colorCost = Color.BLACK,
-            colorIndex = Color.black, colorDraw = Color.white,
-            colorStep = Color.getHSBColor(50, 50, 50),
+    private Color bgColor = Color.lightGray, kmColor = Color.BLACK,
+            indexColor = Color.black, lineColor = Color.white,
+            stepColor = Color.getHSBColor(50, 50, 50),
             colorStepMin = Color.blue, colorResult = Color.GREEN;
-    private int sizeLine = 12, sizeLineResult = 12;
+    private int sizeLine = 6, sizeLineResult = 6;
     private boolean drawResult = false;
     private boolean drawStep = false;
     private boolean reDraw = false;
@@ -40,7 +41,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
     private int indexBeginPoint, indexEndPoint;
     private int drawWith, drawHeight;
     Utils utils = new Utils();
-    public MyDraw() {
+    public DrawMap() {
         addMouseMotionListener(this);
         addMouseListener(this);
         addMouseWheelListener(this);
@@ -48,7 +49,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(colorBackGround);
+        setBackground(bgColor);
         Graphics2D g2d = (Graphics2D) g;
         reDraw(g2d, false);
         if (drawResult) {
@@ -67,7 +68,6 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
             reDraw(g2d, true);
             reDraw = false;
         }
-
     }
 
     @Override
@@ -180,6 +180,72 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
     public void mouseMoved(MouseEvent e) {
     }
 
+    public void write(String path) {
+        try {
+
+
+            for (int i = 0; i < data.getPositions().size(); i++) {
+                data.getPositions().get(i).setName("NAme");
+            }
+
+            path += ".dij";
+            FileOutputStream f = new FileOutputStream(path);
+            ObjectOutputStream oStream = new ObjectOutputStream(f);
+            oStream.writeObject(data);
+            oStream.close();
+            JOptionPane.showMessageDialog(null, "Save success", "Save success",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Save", "Error save file",
+                    JOptionPane.OK_OPTION);
+            System.out.println("Error save file\n" + e.toString());
+        }
+    }
+
+    public void readFile(String path) {
+        MyData data = null;
+        FileInputStream fi;
+        try {
+            fi = new FileInputStream(path);
+            ObjectInputStream oiStream = new ObjectInputStream(fi);
+            data = (MyData) oiStream.readObject();
+            oiStream.close();
+            this.data = data;
+
+            for (int i = 0; i < data.getPathzs().size(); i++) {
+                int A =  data.getPathzs().get(i).getIndexPointA();
+                int B =  data.getPathzs().get(i).getIndexPointB();
+                double x1 =  data.getPathzs().get(i).getL().x1;
+                double y1 =  data.getPathzs().get(i).getL().y1;
+                double x2 =  data.getPathzs().get(i).getL().x2;
+                double y2 =  data.getPathzs().get(i).getL().x2;
+                int km =  data.getPathzs().get(i).getPath();
+                System.out.println("line-" + x1 + "-" + y1 + "-" + x2 + "-" + y2 + "-" + A + "-" + B + "-" + km + "-" + "name");
+            }
+
+            for (int i = 0; i < data.getPositions().size(); i++) {
+                float w =  data.getPositions().get(i).getEl().width;
+                float h =  data.getPositions().get(i).getEl().height;
+                double x1 =  data.getPositions().get(i).getEl().x;
+                double y1 =  data.getPositions().get(i).getEl().y;
+                System.out.println("point-" + x1 + "-" + y1 + "-" + w + "-" + h +"-"+ "name");
+            }
+
+            repaint();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "File not found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error read file\nFile open must is *.dij", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error read class", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println("done read");
+    }
+
     protected int indexPointContain(Point point) {
         for (int i = 1; i < data.getPositions().size(); i++) {
             if (data.getPositions().get(i).getEl().getBounds2D()
@@ -210,7 +276,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
     }
 
     public void resetGraph(Graphics2D g2d) {
-        g2d.setColor(colorBackGround);
+        g2d.setColor(bgColor);
         g2d.fillRect(0, 0, 600, 600);
     }
 
@@ -218,11 +284,11 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
         resetGraph(g2d);
         for (int i = 0; i < data.getPathzs().size(); i++) {
             data.getPathzs().get(i).drawLine(g2d, data.getPositions().get(data.getPathzs().get(i).getIndexPointA()).getP(), data.getPositions().get(data.getPathzs().get(i).getIndexPointB()).getP(),
-                            colorCost, colorDraw, sizeLine, typeMap);
+                    kmColor, lineColor, sizeLine, typeMap);
         }
 
         for (int i = 1; i < data.getPositions().size(); i++) {
-            data.getPositions().get(i).draw(g2d, i, colorDraw, colorIndex);
+            data.getPositions().get(i).draw(g2d, i, lineColor, indexColor);
         }
     }
 
@@ -237,12 +303,12 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
                         a[p[i]][i],"");
 
                 ml.drawLine(g2d, data.getPositions().get(p[i]).getP(), data
-                                .getPositions().get(i).getP(), colorCost, colorResult,
+                                .getPositions().get(i).getP(), kmColor, colorResult,
                         sizeLineResult, typeMap);
 
                 data.getPositions()
                         .get(i)
-                        .drawResult(g2d, i, colorResult, colorIndex, cost,
+                        .drawResult(g2d, i, colorResult, indexColor, cost,
                                 colorResult);
 
                 i = p[i];
@@ -251,7 +317,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
             cost = String.valueOf(len[i]);
             data.getPositions()
                     .get(indexBeginPoint)
-                    .drawResult(g2d, indexBeginPoint, colorResult, colorIndex,
+                    .drawResult(g2d, indexBeginPoint, colorResult, indexColor,
                             cost, colorResult);
         }
     }
@@ -267,12 +333,12 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
                         a[p[i]][i], "");
 
                 ml.drawLine(g2d, data.getPositions().get(p[i]).getP(), data
-                                .getPositions().get(i).getP(), colorCost, colorResult,
+                                .getPositions().get(i).getP(), kmColor, colorResult,
                         sizeLineResult, typeMap);
 
                 data.getPositions()
                         .get(i)
-                        .drawResult(g2d, i, colorResult, colorIndex, cost,
+                        .drawResult(g2d, i, colorResult, indexColor, cost,
                                 colorResult);
             }
 
@@ -281,7 +347,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
         cost = "0";
         data.getPositions()
                 .get(indexBeginPoint)
-                .drawResult(g2d, indexBeginPoint, colorResult, colorIndex,
+                .drawResult(g2d, indexBeginPoint, colorResult, indexColor,
                         cost, colorResult);
     }
 
@@ -306,13 +372,13 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
                                 g2d,
                                 data.getPositions()
                                         .get(arrPointResultStep.get(i)).getP(),
-                                data.getPositions().get(j).getP(), colorCost,
-                                colorStep, sizeLine, typeMap);
+                                data.getPositions().get(j).getP(), kmColor,
+                                stepColor, sizeLine, typeMap);
 
                         data.getPositions()
                                 .get(j)
-                                .drawResult(g2d, j, colorStep, colorIndex,
-                                        cost, colorStep);
+                                .drawResult(g2d, j, stepColor, indexColor,
+                                        cost, stepColor);
                     }
                 }
 
@@ -346,7 +412,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
                 data.getPositions()
                         .get(arrPointResultStep.get(i))
                         .drawResult(g2d, arrPointResultStep.get(i),
-                                colorStepMin, colorIndex, cost, colorStepMin);
+                                colorStepMin, indexColor, cost, colorStepMin);
             }
         }
 
@@ -360,12 +426,12 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
                         p[i], a[p[i]][i],  "hailt");
 
                 ml.drawLine(g2d, data.getPositions().get(p[i]).getP(), data
-                                .getPositions().get(i).getP(), colorCost, colorResult,
+                                .getPositions().get(i).getP(), kmColor, colorResult,
                         sizeLineResult, typeMap);
 
                 data.getPositions()
                         .get(i)
-                        .drawResult(g2d, i, colorResult, colorIndex, cost,
+                        .drawResult(g2d, i, colorResult, indexColor, cost,
                                 colorResult);
 
                 i = p[i];
@@ -373,7 +439,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener, Mouse
             cost = String.valueOf(len[i]);
             data.getPositions()
                     .get(indexBeginPoint)
-                    .drawResult(g2d, indexBeginPoint, colorResult, colorIndex,
+                    .drawResult(g2d, indexBeginPoint, colorResult, indexColor,
                             cost, colorResult);
         }
     }

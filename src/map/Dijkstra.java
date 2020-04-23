@@ -3,10 +3,11 @@ package map;
 import map.model.Pathz;
 import map.model.Position;
 import map.model.Position;
+import map.util.Utils;
 
 import java.util.ArrayList;
 
-public class MyDijkstra {
+public class Dijkstra {
 	private int a[][];
 	private int[] len, p;
 	private int[][] logLen, logP;
@@ -25,7 +26,7 @@ public class MyDijkstra {
 	private String path = "";
 	private ArrayList<Integer> arrTempPoint;
 
-	public MyDijkstra() {
+	public Dijkstra() {
 
 	}
 
@@ -104,55 +105,35 @@ public class MyDijkstra {
 		return len[endPoint];
 	}
 
-	public int dijkstraStep(int step) {
-		initValue();
-		int i = 0, k = 0;
-		arrPointResultStep = new ArrayList<Integer>();
-		// while (!checkPointMin[end] && k < step) {
-		while (checkContinueStep(step, k)) {
-			for (i = 1; i < size; i++)
-				if (!checkedPointMin[i] && len[i] < infinity)
-					break;
-			if (i >= size) {
-				stop = true;
-				break;
-			}
-			for (int j = 1; j < size; j++)
-				if (!checkedPointMin[j] && len[i] > len[j])
-					i = j;
-
-			checkedPointMin[i] = true;
-			for (int j = 1; j < size; j++) {
-				if (!checkedPointMin[j] && len[i] + a[i][j] < len[j]) {
-					len[j] = len[i] + a[i][j];
-					p[j] = i;
-				}
-				logLen[k][j] = len[j];
-				logP[k][j] = p[j];
-			}
-			arrPointResultStep.add(i);
-			k++;
-		}
-		if (endPoint == -1) {
-			numberPointChecked = positions.size();
-			return 0;
-		}
-		numberPointChecked = k;
-		return len[endPoint];
-	}
-
-	private boolean checkContinueStep(int step, int k) {
-		if (endPoint != -1) {
-			return (!checkedPointMin[endPoint] && k < step);
-		}
-		return (k < positions.size() - 1 && k < step);
-	}
-
 	private boolean checkContinue(int k) {
 		if (endPoint != -1) {
 			return (!checkedPointMin[endPoint]);
 		}
 		return (k < positions.size() - 1);
+	}
+
+	public String getPath() {
+		path = "";
+		String path2 = "";
+		ArrayList<Integer> mlist = new ArrayList<>();
+
+		if (endPoint > 0 && len[endPoint] < infinity) {
+			int i = endPoint;
+			while (i != beginPoint) {
+				path = " > " + i + path;
+				mlist.add(i);
+				i = p[i];
+			}
+
+			for (int i1 = 0; i1 < mlist.size(); i1++) {
+				path2 = path2 + " > " + positions.get(mlist.get(i1)).getName();
+			}
+
+			path = "Chiều dài " + len[endPoint] + "m" + " : " + i + path2;
+		}  else {
+			path = "Không thể đi";
+		}
+		return path;
 	}
 
 	public int getNumberPointChecked() {

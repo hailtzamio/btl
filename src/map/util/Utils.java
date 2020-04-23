@@ -16,17 +16,17 @@ import java.util.List;
 
 public class Utils {
 
+    ArrayList<Position> myPoints = new ArrayList<>();
     public MyData getDataFromFile() {
         MyData myData = new MyData();
         try {
 
-            Path pathToFile = Paths.get("map3.txt");
+            Path pathToFile = Paths.get("test.txt");
             System.out.println(pathToFile.toAbsolutePath());
 
             List<String> productLines = Files.readAllLines(pathToFile.toAbsolutePath(), StandardCharsets.UTF_8);
 
             ArrayList<Pathz> myLines = new ArrayList<>();
-            ArrayList<Position> myPoints = new ArrayList<>();
             for (String line : productLines) {
 
                 String[] tokens = line.split("-");
@@ -39,17 +39,18 @@ public class Utils {
                     int pointA = Integer.parseInt(tokens[5]);
                     int pointB = Integer.parseInt(tokens[6]);
                     int km = Integer.parseInt(tokens[7]);
+//                    int km2 = Math.round(km*100);
 
                     Pathz myLine = new Pathz(new Line2D.Double(x1, y1, x2, y2), pointA, pointB, km, tokens[8]);
                     myLines.add(myLine);
                 }
 
-                if(tokens[0].startsWith("point")) {
+                if (tokens[0].startsWith("point")) {
                     float x = Float.parseFloat(tokens[1]) + 100;
                     float y = Float.parseFloat(tokens[2]) + 100;
-//                    float w = Float.parseFloat(tokens[3]);
+                    String name = tokens[3];
 //                    float h = Float.parseFloat(tokens[4]);
-                    Position myPoint = new Position(new Ellipse2D.Float(x,y,20,20));
+                    Position myPoint = new Position(new Ellipse2D.Float(x, y, 10, 10), name);
                     myPoints.add(myPoint);
                 }
 
@@ -58,8 +59,8 @@ public class Utils {
             myData.setPathzs(myLines);
             myData.setPositions(myPoints);
 
-            for (Pathz product : myLines) {
-                System.out.println(product.getStreetName());
+            for (Position product : myPoints) {
+                System.out.println(product.getName());
             }
 
         } catch (
@@ -67,6 +68,30 @@ public class Utils {
             e.printStackTrace();
         }
         return myData;
+    }
+
+    public ArrayList<Position> getPositions() {
+        return myPoints;
+    }
+
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
 }

@@ -1,10 +1,10 @@
 package map;
 
-import map.uicommon.Help;
 import map.uicommon.SuggestionDropDownDecorator;
 import map.uicommon.TextComponentSuggestionClient;
 import map.uicommon.TextComponentWordSuggestionClient;
 import map.util.RandomUtil;
+import map.util.Utils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,21 +20,18 @@ import java.util.stream.Collectors;
 public class MapLayout extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
-    private JFrame frameAbout, frameHelp;
-    private String data[][], head[];
-
     private JComboBox<String> cbbGraphDemo = new JComboBox<String>();
 
-    private JButton btnRunAll, btnRunStep,btnSearch;
+    private JButton btnSearch;
     private JPanel drawPanel = new JPanel();
-    private MyDraw myDraw = new MyDraw();
+    private DrawMap grawMap = new DrawMap();
 
     private int indexBeginPoint = 0, indexEndPoint = 0;
     private int step = 0;
     private boolean mapType = false;
 
     int WIDTH_SELECT, HEIGHT_SELECT;
-    MyDijkstra dijkstra = new MyDijkstra();
+    Dijkstra dijkstra = new Dijkstra();
 
     public MapLayout(String title) {
         setTitle(title);
@@ -44,6 +41,7 @@ public class MapLayout extends JFrame implements ActionListener {
         add(creatMenu(), BorderLayout.PAGE_START);
         add(creatSelectPanel(), BorderLayout.WEST);
         add(creatPaintPanel(), BorderLayout.CENTER);
+        add(creatLogPanel(), BorderLayout.PAGE_END);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -52,8 +50,10 @@ public class MapLayout extends JFrame implements ActionListener {
 
     private JMenuBar creatMenu() {
         JMenu menuFile = new JMenu("File");
+        menuFile.add(createMenuItem("Open", KeyEvent.VK_O, Event.CTRL_MASK));
         menuFile.setMnemonic(KeyEvent.VK_F);
         menuFile.addSeparator();
+        menuFile.add(createMenuItem("Save", KeyEvent.VK_S, Event.CTRL_MASK));
         menuFile.add(createMenuItem("Exit", KeyEvent.VK_X, Event.CTRL_MASK));
 
         JMenu menuHelp = new JMenu("Help");
@@ -61,6 +61,7 @@ public class MapLayout extends JFrame implements ActionListener {
         menuHelp.add(createMenuItem("About", KeyEvent.VK_A, Event.CTRL_MASK));
         menuHelp.add(createMenuItem("Move", KeyEvent.VK_A, Event.CTRL_MASK));
         menuHelp.add(createMenuItem("Update", KeyEvent.VK_A, Event.CTRL_MASK));
+
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(menuFile);
@@ -74,8 +75,8 @@ public class MapLayout extends JFrame implements ActionListener {
         JPanel panelTop = new JPanel(new GridLayout(6, 1, 5, 5));
         JPanel panelBottom = new JPanel(new BorderLayout());
 
-        makeJTextFieldGoFrom(panelTop, "Điểm đi",tfBegin);
-        makeJTextFieldGoFrom(panelTop, "Điểm đến",tfEnd);
+        makeJTextFieldGoFrom(panelTop, "Điểm đi", tfBegin);
+        makeJTextFieldGoFrom(panelTop, "Điểm đến", tfEnd);
         makeSearchButton(panelTop);
 
         panel.add(panelTop, BorderLayout.PAGE_START);
@@ -86,18 +87,20 @@ public class MapLayout extends JFrame implements ActionListener {
         return panel;
     }
 
-    private void makeJTextFieldGoFrom(JPanel panelTop, String title,JTextField tf) {
+    private void makeJTextFieldGoFrom(JPanel panelTop, String title, JTextField tf) {
         JPanel panelSmall = new JPanel(new GridLayout(1, 2, 15, 5));
         panelSmall.setBorder(new EmptyBorder(0, 15, 0, 5));
-        setupSuggestJTextField(panelSmall,tf);
+        setupSuggestJTextField(panelSmall, tf);
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new TitledBorder(title));
         panel.add(panelSmall);
         panelTop.add(panel);
     }
-    JTextField tfBegin =  new JTextField(10);
+
+    JTextField tfBegin = new JTextField(10);
     JTextField tfEnd = new JTextField(10);
-    private void setupSuggestJTextField(JPanel panel,JTextField tf) {
+
+    private void setupSuggestJTextField(JPanel panel, JTextField tf) {
         SuggestionDropDownDecorator.decorate(tf,
                 new TextComponentSuggestionClient(MapLayout::getSuggestions));
         JTextPane textPane = new JTextPane();
@@ -117,7 +120,6 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
 
-
     private JPanel creatPaintPanel() {
         drawPanel.setLayout(new BoxLayout(drawPanel, BoxLayout.Y_AXIS));
         drawPanel.setBorder(new TitledBorder(""));
@@ -125,7 +127,7 @@ public class MapLayout extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(drawPanel, BorderLayout.WEST);
-        panel.add(myDraw, BorderLayout.CENTER);
+        panel.add(grawMap, BorderLayout.CENTER);
         return panel;
     }
 
@@ -160,12 +162,12 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
     private void actionDrawPoint() {
-        myDraw.setDraw(1);
+        grawMap.setDraw(1);
         setDrawResultOrStep(false);
     }
 
     private void actionDrawLine() {
-        myDraw.setDraw(2);
+        grawMap.setDraw(2);
         setDrawResultOrStep(false);
     }
 
@@ -176,10 +178,11 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
     static ArrayList<String> suggestList = new ArrayList<>();
+
     private void makeSuggestBegin() {
-        int size = myDraw.getData().getPositions().size();
+        int size = grawMap.getData().getPositions().size();
         for (int i = 0; i < size; i++) {
-            suggestList.add(String.valueOf(i));
+            suggestList.add(grawMap.getData().getPositions().get(i).getName());
         }
     }
 
@@ -189,44 +192,59 @@ public class MapLayout extends JFrame implements ActionListener {
 
     private void setEnableMapType(boolean mapType) {
         this.mapType = mapType;
-        myDraw.setTypeMap(mapType);
+        grawMap.setTypeMap(mapType);
         setDrawResultOrStep(false);
-        myDraw.repaint();
+        grawMap.repaint();
         resetDataDijkstra();
     }
 
     private void setDrawResultOrStep(boolean check) {
-        myDraw.setDrawResult(check);
-        myDraw.setDrawStep(check);
+        grawMap.setDrawResult(check);
+        grawMap.setDrawStep(check);
     }
 
     private void resetDataDijkstra() {
         step = 0;
-        dijkstra = new MyDijkstra();
+        dijkstra = new Dijkstra();
         dijkstra.setMapType(mapType);
-        dijkstra.setArrMyPoint(myDraw.getData().getPositions());
-        dijkstra.setArrMyLine(myDraw.getData().getPathzs());
+        dijkstra.setArrMyPoint(grawMap.getData().getPositions());
+        dijkstra.setArrMyLine(grawMap.getData().getPathzs());
         dijkstra.input();
         dijkstra.processInput();
     }
 
     private void reDraw() {
-        myDraw.setReDraw(true);
-        myDraw.repaint();
+        grawMap.setReDraw(true);
+        grawMap.repaint();
     }
 
     private void drawDemo() {
         int demo = cbbGraphDemo.getSelectedIndex();
-        myDraw.readDemoTest(demo);
+        grawMap.readDemoTest(demo);
         updateView();
     }
 
     private boolean checkRun() {
-        int size = myDraw.getData().getPositions().size() - 1;
-        indexBeginPoint = Integer.parseInt(tfBegin.getText());
-        indexEndPoint = Integer.parseInt(tfEnd.getText());
-        if (indexEndPoint == size + 1) {
-            indexEndPoint = -1;
+
+
+        int size = grawMap.getData().getPositions().size() - 1;
+
+        if (Utils.isNumeric(tfBegin.getText()) && Utils.isNumeric(tfEnd.getText())) {
+            indexBeginPoint = Integer.parseInt(tfBegin.getText());
+            indexEndPoint = Integer.parseInt(tfEnd.getText());
+            if (indexEndPoint == size + 1) {
+                indexEndPoint = -1;
+            }
+        } else {
+            for (int i = 0; i < suggestList.size(); i++) {
+                if (suggestList.get(i).equals(tfBegin.getText())) {
+                    indexBeginPoint = i;
+                }
+
+                if (suggestList.get(i).equals(tfEnd.getText())) {
+                    indexEndPoint = i;
+                }
+            }
         }
 
         if (size < 1 || indexBeginPoint == 0 || indexEndPoint == 0) {
@@ -239,94 +257,103 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
     private void setBeginEndPoint() {
-        myDraw.setIndexBeginPoint(indexBeginPoint);
-        myDraw.setIndexEndPoint(indexEndPoint);
+        grawMap.setIndexBeginPoint(indexBeginPoint);
+        grawMap.setIndexEndPoint(indexEndPoint);
         dijkstra.setBeginPoint(indexBeginPoint);
         dijkstra.setEndPoint(indexEndPoint);
     }
 
-    private void runAll() {
+    private void findWay() {
         if (checkRun()) {
             resetDataDijkstra();
             setBeginEndPoint();
             dijkstra.dijkstra();
-            myDraw.setDrawStep(false);
-            myDraw.setDrawResult(true);
-            myDraw.setA(dijkstra.getA());
-            myDraw.setP(dijkstra.getP());
-            myDraw.setInfinity(dijkstra.getInfinity());
-            myDraw.setLen(dijkstra.getLen());
-            myDraw.setCheckedPointMin(dijkstra.getCheckedPointMin());
-            myDraw.repaint();
+            grawMap.setDrawStep(false);
+            grawMap.setDrawResult(true);
+            grawMap.setA(dijkstra.getA());
+            textLog.setText(dijkstra.getPath());
+            grawMap.setP(dijkstra.getP());
+            grawMap.setInfinity(dijkstra.getInfinity());
+            grawMap.setLen(dijkstra.getLen());
+            grawMap.setCheckedPointMin(dijkstra.getCheckedPointMin());
+            grawMap.repaint();
         }
     }
 
-    private void runStep() {
-        if (checkRun()) {
-            setBeginEndPoint();
-            dijkstra.dijkstraStep(++step);
-            myDraw.setDrawStep(true);
-            myDraw.setDrawResult(false);
-            myDraw.setA(dijkstra.getA());
-            myDraw.setP(dijkstra.getP());
-            myDraw.setArrPointResultStep(dijkstra.getArrPointResultStep());
-            myDraw.setLen(dijkstra.getLen());
-            myDraw.setCheckedPointMin(dijkstra.getCheckedPointMin());
-            myDraw.setInfinity(dijkstra.getInfinity());
-            myDraw.repaint();
-        }
-    }
+    private JTextArea textLog;
 
-    private void showHelp() {
-        if (frameHelp == null) {
-            frameHelp = new Help(0, "Help");
-        }
-        frameHelp.setVisible(true);
-    }
+    private JPanel creatLogPanel() {
+        textLog = new JTextArea("");
+        textLog.setRows(3);
+        textLog.setEditable(false);
+        JScrollPane scrollPath = new JScrollPane(textLog);
 
-    private void showAbout() {
-        if (frameAbout == null) {
-            frameAbout = new Help(1, "About");
-        }
-        frameAbout.setVisible(true);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(new TitledBorder("Đường đi"));
+        panel.add(scrollPath, BorderLayout.PAGE_START);
+        panel.setPreferredSize(new Dimension(WIDTH_SELECT * 7 / 2,
+                HEIGHT_SELECT / 2));
+        return panel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (e.getSource() == btnRunStep) {
-            runStep();
-        }
-
-        if (e.getSource() == btnRunAll) {
-            runAll();
-        }
-
         if (e.getSource() == btnSearch) {
-            runAll();
+            findWay();
+        }
+
+        if (command == "Open") {
+            actionOpen();
         }
 
         if (command == "Exit") {
             System.exit(0);
         }
 
-        if (command == "About") {
-            showAbout();
-        }
 
         if (command == "Move") {
-            myDraw.setDraw(3);
+            grawMap.setDraw(3);
         }
 
         if (command == "Update") {
             updateView();
         }
 
-        if (command == "Help") {
-            showHelp();
+        if (command == "Save") {
+            actionSave();
         }
 
+    }
+
+    private void actionSave() {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Save graph");
+        int select = fc.showSaveDialog(this);
+        if (select == 0) {
+            String path = fc.getSelectedFile().getPath();
+            System.out.println(path);
+            grawMap.write(path);
+        }
+    }
+
+    private void actionOpen() {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Open graph");
+        int select = fc.showOpenDialog(this);
+        if (select == 0) {
+            String path = fc.getSelectedFile().getPath();
+            System.out.println(path);
+            grawMap.readFile(path);
+            actionUpdate();
+        }
+    }
+
+    private void actionUpdate() {
+        resetDataDijkstra();
+        setDrawResultOrStep(false);
+        reDraw();
     }
 
     private static List<String> words =

@@ -1,10 +1,6 @@
 package map.model;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Polygon;
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
 
@@ -13,13 +9,9 @@ public class Pathz implements Serializable {
     private Line2D.Double l = new Line2D.Double();
     private int indexPointA, indexPointB;
     private int path;
-
-
-
     private String streetName;
-
     final int barb = 10;
-    final int r = 40;
+    final int r = 10;
     final double phi = Math.PI / 6;
 
     public Pathz(Line2D.Double l, int indexPointA, int indexPointB, int path, String streetName) {
@@ -43,14 +35,14 @@ public class Pathz implements Serializable {
 
     public void drawLine(Graphics2D g, Point p1, Point p2, Color colorCost,
                          Color colorLine, int size, boolean type) {
-        String c = "";
+        String streetName = "";
         String km = "";
         if (path < 0) {
-            c = "";
+            streetName = "";
             km = "";
         } else {
-            km = path + " km";
-            c = streetName;
+            km = path + " m";
+            streetName = this.streetName;
         }
 
         g.setColor(colorLine);
@@ -64,10 +56,13 @@ public class Pathz implements Serializable {
         }
 
         g.setColor(colorCost);
-        g.drawString(c, (int) (Math.abs(p1.x + p2.x) / 2),
+        g.drawString(streetName, (int) (Math.abs(p1.x + p2.x) / 2),
                 (int) (p1.y + p2.y) / 2);
         g.drawString(km, (int) (Math.abs(p1.x + 10 + p2.x + 10) / 2),
                 (int) (p1.y + 10 + p2.y + 10) / 2);
+        Font currentFont = g.getFont();
+        Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.95F);
+        g.setFont(newFont);
     }
 
     public boolean containerPoint(Point p) {

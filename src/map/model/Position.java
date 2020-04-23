@@ -11,7 +11,7 @@ public class Position implements Serializable {
 	private java.awt.Point p = new java.awt.Point();
 	private  String name;
 
-	final int r = 10;
+	final int r = 5;
 
 	public void drawIndex(Graphics2D g, int index, Color colorIndex) {
 		g.setColor(colorIndex);
@@ -69,6 +69,13 @@ public class Position implements Serializable {
 	public void setP(java.awt.Point p) {
 		this.p = p;
 	}
+
+	public Position(Ellipse2D.Float el,String name) {
+		super();
+		setEl(el);
+		this.name = name;
+	}
+
 
 	public Position(Ellipse2D.Float el) {
 		super();

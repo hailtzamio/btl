@@ -80,7 +80,6 @@ public class RandomUtil {
         return NAMES[i] + " " + NAMES[j];
     }
 
-
     public static String getAnyOf(String... strings) {
         if (strings == null || strings.length == 0) {
             return null;
