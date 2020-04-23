@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba9703ae-4c6d-4608-b393-46112e74a1c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/map/util/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/MapLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/map/MapLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/MyDijkstra.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/MyDraw.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/MyMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/model/Pathz.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/map/model/Pathz.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/model/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/map/model/Position.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/uicommon/Help.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/util/RandomUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/map/util/RandomUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/map/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/map/util/Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/map3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/file/about" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/file/help" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconLine.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconMove.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconNew.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconOk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconOpen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconPoint.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon/iconSave.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/MapLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/MapLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/MyDijkstra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/Dijkstra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/MyDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/DrawMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/MyMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/model/Pathz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/model/Pathz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/model/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/model/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/uicommon/Help.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/util/RandomUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/util/RandomUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/util/Utils.java" afterDir="false" />
-    </list>
+    <list default="true" id="ba9703ae-4c6d-4608-b393-46112e74a1c3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,7 +120,7 @@
       <workItem from="1587547725709" duration="16420000" />
       <workItem from="1587569300193" duration="74000" />
       <workItem from="1587569404974" duration="3776000" />
-      <workItem from="1587635418234" duration="13125000" />
+      <workItem from="1587635418234" duration="13398000" />
     </task>
     <servers />
   </component>
@@ -200,22 +168,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587375471136" />
-    <state width="1542" height="202" key="GridCell.Tab.0.bottom" timestamp="1587659024451">
+    <state width="1542" height="202" key="GridCell.Tab.0.bottom" timestamp="1587659383851">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1542" height="202" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587659024451" />
-    <state width="1542" height="202" key="GridCell.Tab.0.center" timestamp="1587659024451">
+    <state width="1542" height="202" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587659383851" />
+    <state width="1542" height="202" key="GridCell.Tab.0.center" timestamp="1587659383851">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1542" height="202" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587659024451" />
-    <state width="1542" height="202" key="GridCell.Tab.0.left" timestamp="1587659024451">
+    <state width="1542" height="202" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587659383851" />
+    <state width="1542" height="202" key="GridCell.Tab.0.left" timestamp="1587659383851">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1542" height="202" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587659024451" />
-    <state width="1542" height="202" key="GridCell.Tab.0.right" timestamp="1587659024451">
+    <state width="1542" height="202" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587659383851" />
+    <state width="1542" height="202" key="GridCell.Tab.0.right" timestamp="1587659383851">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1542" height="202" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587659024451" />
+    <state width="1542" height="202" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587659383851" />
     <state width="1542" height="221" key="GridCell.Tab.1.bottom" timestamp="1587650789334">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
