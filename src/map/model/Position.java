@@ -10,46 +10,38 @@ public class Position implements Serializable {
 	private Ellipse2D.Float el = new Ellipse2D.Float();
 	private java.awt.Point p = new java.awt.Point();
 	private  String name;
-
-	final int r = 5;
-
-	public void drawIndex(Graphics2D g, int index, Color colorIndex) {
+	final int radius = 5;
+	public void drawPositionName(Graphics2D g, int index, Color colorIndex) {
 		g.setColor(colorIndex);
-		int stringLen = (int) g.getFontMetrics()
+		int len = (int) g.getFontMetrics()
 				.getStringBounds(String.valueOf(index), g).getWidth();
 		int stringHeight = (int) g.getFontMetrics()
 				.getStringBounds(String.valueOf(index), g).getHeight();
-		int startX = -stringLen / 2;
+		int startX = -len / 2;
 		int startY = stringHeight / 2;
 		g.drawString(String.valueOf(index), startX + (int) p.x, (int) p.y
 				+ startY);
 	}
 
-	public void drawPath(Graphics2D g, String cost, Color colorCostResult) {
-		g.setColor(colorCostResult);
-		g.drawString(String.valueOf(10), (int) p.x - r / 5, (int) p.y - r);
+	public void drawPath(Graphics2D g, String km, Color kmColor) {
+//		g.setColor(kmColor);
+//		g.drawString(String.valueOf(10), (int) p.x - r / 5, (int) p.y - r);
 	}
 
-	public void drawPoint(Graphics2D g, int index, Color colorPoint) {
+	public void drawPositionPoint(Graphics2D g, int index, Color colorPoint) {
 		g.setColor(colorPoint);
 		g.fill(el);
 	}
 
-	public void drawIndexCost(Graphics2D g, int index, String cost,
-			Color colorIndex, Color colorCostResult) {
-		drawIndex(g, index, colorIndex);
-		drawPath(g, cost, colorCostResult);
-	}
-
-	public void drawResult(Graphics2D g, int index, Color colorPoint, Color colorIndex, String cost, Color colorCostResult) {
-		drawPoint(g, index, colorPoint);
-		drawIndex(g, index, colorIndex);
+	public void drawFinalMap(Graphics2D g, int index, Color colorPoint, Color colorIndex, String cost, Color colorCostResult) {
+		drawPositionPoint(g, index, colorPoint);
+		drawPositionName(g, index, colorIndex);
 		drawPath(g, cost, colorCostResult);
 	}
 
 	public void draw(Graphics2D g, int index, Color colorPoint, Color colorIndex) {
-		drawPoint(g, index, colorPoint);
-		drawIndex(g, index, colorIndex);
+		drawPositionPoint(g, index, colorPoint);
+		drawPositionName(g, index, colorIndex);
 	}
 
 	public Ellipse2D.Float getEl() {
@@ -58,8 +50,8 @@ public class Position implements Serializable {
 
 	public void setEl(Ellipse2D.Float el) {
 		this.el = el;
-		this.p.x = (int) (el.x + r);
-		this.p.y = (int) (el.y + r);
+		this.p.x = (int) (el.x + radius);
+		this.p.y = (int) (el.y + radius);
 	}
 
 	public java.awt.Point getP() {
@@ -75,7 +67,6 @@ public class Position implements Serializable {
 		setEl(el);
 		this.name = name;
 	}
-
 
 	public Position(Ellipse2D.Float el) {
 		super();

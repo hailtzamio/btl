@@ -21,34 +21,33 @@ public class MapLayout extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
     private JComboBox<String> cbbGraphDemo = new JComboBox<String>();
-
     private JButton btnSearch;
-    private JPanel drawPanel = new JPanel();
-    private DrawMap grawMap = new DrawMap();
-
-    private int indexBeginPoint = 0, indexEndPoint = 0;
-    private int step = 0;
+    private JPanel mainPanel = new JPanel();
+    private DrawMap drawMap = new DrawMap();
+    private int fromPosition = 0, toPosition = 0;
     private boolean mapType = false;
 
     int WIDTH_SELECT, HEIGHT_SELECT;
     Dijkstra dijkstra = new Dijkstra();
 
+    public static void main(String[] args) {
+        new MapLayout("Bong Map");
+    }
+
     public MapLayout(String title) {
         setTitle(title);
         setLayout(new BorderLayout(5, 5));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        add(creatMenu(), BorderLayout.PAGE_START);
-        add(creatSelectPanel(), BorderLayout.WEST);
-        add(creatPaintPanel(), BorderLayout.CENTER);
-        add(creatLogPanel(), BorderLayout.PAGE_END);
+        add(drawMenu(), BorderLayout.PAGE_START);
+        add(drawFromToPosition(), BorderLayout.WEST);
+        add(drawMapLayout(), BorderLayout.CENTER);
+        add(drawWayLayout(), BorderLayout.PAGE_END);
         pack();
-        setLocationRelativeTo(null);
         setVisible(true);
-        drawDemo();
+        readTextFileAndShowMap();
     }
 
-    private JMenuBar creatMenu() {
+    private JMenuBar drawMenu() {
         JMenu menuFile = new JMenu("File");
         menuFile.add(createMenuItem("Open", KeyEvent.VK_O, Event.CTRL_MASK));
         menuFile.setMnemonic(KeyEvent.VK_F);
@@ -62,14 +61,13 @@ public class MapLayout extends JFrame implements ActionListener {
         menuHelp.add(createMenuItem("Move", KeyEvent.VK_A, Event.CTRL_MASK));
         menuHelp.add(createMenuItem("Update", KeyEvent.VK_A, Event.CTRL_MASK));
 
-
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(menuFile);
         menuBar.add(menuHelp);
         return menuBar;
     }
 
-    private JPanel creatSelectPanel() {
+    private JPanel drawFromToPosition() {
 
         JPanel panel = new JPanel(new BorderLayout());
         JPanel panelTop = new JPanel(new GridLayout(6, 1, 5, 5));
@@ -119,15 +117,14 @@ public class MapLayout extends JFrame implements ActionListener {
         panel.add(panelRun);
     }
 
-
-    private JPanel creatPaintPanel() {
-        drawPanel.setLayout(new BoxLayout(drawPanel, BoxLayout.Y_AXIS));
-        drawPanel.setBorder(new TitledBorder(""));
-        drawPanel.setBackground(null);
+    private JPanel drawMapLayout() {
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(new TitledBorder(""));
+        mainPanel.setBackground(null);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.add(drawPanel, BorderLayout.WEST);
-        panel.add(grawMap, BorderLayout.CENTER);
+        panel.add(mainPanel, BorderLayout.WEST);
+        panel.add(drawMap, BorderLayout.CENTER);
         return panel;
     }
 
@@ -145,149 +142,107 @@ public class MapLayout extends JFrame implements ActionListener {
         return btn;
     }
 
-    private JComboBox<String> CustomComboxBox(String title) {
-        String list[] = {title};
-        JComboBox<String> cbb = new JComboBox<String>(list);
-        cbb.addActionListener(this);
-        cbb.setEditable(false);
-        cbb.setMaximumRowCount(5);
-        return cbb;
-    }
-
     private void updateView() {
         makeSuggestBegin();
-        resetDataDijkstra();
-        setDrawResultOrStep(false);
-        reDraw();
-    }
-
-    private void actionDrawPoint() {
-        grawMap.setDraw(1);
-        setDrawResultOrStep(false);
-    }
-
-    private void actionDrawLine() {
-        grawMap.setDraw(2);
-        setDrawResultOrStep(false);
-    }
-
-    private void actionChoosePoint() {
-        resetDataDijkstra();
-        setDrawResultOrStep(false);
+        setupDataToDijkstra();
         reDraw();
     }
 
     static ArrayList<String> suggestList = new ArrayList<>();
 
     private void makeSuggestBegin() {
-        int size = grawMap.getData().getPositions().size();
+        int size = drawMap.getData().getPositions().size();
         for (int i = 0; i < size; i++) {
-            suggestList.add(grawMap.getData().getPositions().get(i).getName());
+            suggestList.add(drawMap.getData().getPositions().get(i).getName());
         }
     }
 
-    private void setEnableDraw(boolean check, String matrix) {
-        cbbGraphDemo.setEnabled(!check);
-    }
-
-    private void setEnableMapType(boolean mapType) {
-        this.mapType = mapType;
-        grawMap.setTypeMap(mapType);
-        setDrawResultOrStep(false);
-        grawMap.repaint();
-        resetDataDijkstra();
-    }
-
-    private void setDrawResultOrStep(boolean check) {
-        grawMap.setDrawResult(check);
-        grawMap.setDrawStep(check);
-    }
-
-    private void resetDataDijkstra() {
-        step = 0;
+    private void setupDataToDijkstra() {
         dijkstra = new Dijkstra();
         dijkstra.setMapType(mapType);
-        dijkstra.setArrMyPoint(grawMap.getData().getPositions());
-        dijkstra.setArrMyLine(grawMap.getData().getPathzs());
-        dijkstra.input();
-        dijkstra.processInput();
+        dijkstra.setPositions(drawMap.getData().getPositions());
+        dijkstra.setPathzs(drawMap.getData().getPathzs());
+        dijkstra.setData();
     }
 
     private void reDraw() {
-        grawMap.setReDraw(true);
-        grawMap.repaint();
+        drawMap.setReDraw(true);
+        drawMap.repaint();
     }
 
-    private void drawDemo() {
+    private void readTextFileAndShowMap() {
         int demo = cbbGraphDemo.getSelectedIndex();
-        grawMap.readDemoTest(demo);
+        drawMap.readDemoTest(demo);
         updateView();
     }
 
-    private boolean checkRun() {
+    private boolean isStartToFindWay() {
 
-
-        int size = grawMap.getData().getPositions().size() - 1;
-
+        int positionsSize = drawMap.getData().getPositions().size() - 1;
         if (Utils.isNumeric(tfBegin.getText()) && Utils.isNumeric(tfEnd.getText())) {
-            indexBeginPoint = Integer.parseInt(tfBegin.getText());
-            indexEndPoint = Integer.parseInt(tfEnd.getText());
-            if (indexEndPoint == size + 1) {
-                indexEndPoint = -1;
+            fromPosition = Integer.parseInt(tfBegin.getText());
+            toPosition = Integer.parseInt(tfEnd.getText());
+            if (toPosition == positionsSize + 1) {
+                toPosition = -1;
             }
         } else {
             for (int i = 0; i < suggestList.size(); i++) {
                 if (suggestList.get(i).equals(tfBegin.getText())) {
-                    indexBeginPoint = i;
+                    fromPosition = i;
                 }
 
                 if (suggestList.get(i).equals(tfEnd.getText())) {
-                    indexEndPoint = i;
+                    toPosition = i;
                 }
             }
         }
 
-        if (size < 1 || indexBeginPoint == 0 || indexEndPoint == 0) {
+        if(toPosition == 44 ) {
+            toPosition = 18; // Go to the Huu Nghi hospital
+        }
+
+        if(toPosition == 45 ) {
+            toPosition = 4;
+        }
+
+        if (positionsSize < 1 || fromPosition == 0 || toPosition == 0) {
             JOptionPane.showMessageDialog(null,
                     "Chọn điểm đi và điểm đến",
-                    "error", JOptionPane.WARNING_MESSAGE);
+                    "Có lỗi", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
 
-    private void setBeginEndPoint() {
-        grawMap.setIndexBeginPoint(indexBeginPoint);
-        grawMap.setIndexEndPoint(indexEndPoint);
-        dijkstra.setBeginPoint(indexBeginPoint);
-        dijkstra.setEndPoint(indexEndPoint);
+    private void setPositionFromTo() {
+        drawMap.setFromPosition(fromPosition);
+        drawMap.setToPosition(toPosition);
+        dijkstra.setFromPosition(fromPosition);
+        dijkstra.setToPosition(toPosition);
     }
 
     private void findWay() {
-        if (checkRun()) {
-            resetDataDijkstra();
-            setBeginEndPoint();
+        if (isStartToFindWay()) {
+            setupDataToDijkstra();
+            setPositionFromTo();
             dijkstra.dijkstra();
-            grawMap.setDrawStep(false);
-            grawMap.setDrawResult(true);
-            grawMap.setA(dijkstra.getA());
-            textLog.setText(dijkstra.getPath());
-            grawMap.setP(dijkstra.getP());
-            grawMap.setInfinity(dijkstra.getInfinity());
-            grawMap.setLen(dijkstra.getLen());
-            grawMap.setCheckedPointMin(dijkstra.getCheckedPointMin());
-            grawMap.repaint();
+            drawMap.setDrawResult(true);
+            drawMap.setCoList(dijkstra.getCoList());
+            tvWay.setText(dijkstra.getPath());
+            drawMap.setPrevious(dijkstra.getPrevious());
+            drawMap.setInfinity(dijkstra.getInfinity());
+            drawMap.setMinPath(dijkstra.getMinPath());
+            drawMap.setCheckedPointMin(dijkstra.getCheckRightPositionShortest());
+            drawMap.repaint();
         }
     }
 
-    private JTextArea textLog;
-
-    private JPanel creatLogPanel() {
-        textLog = new JTextArea("");
-        textLog.setRows(3);
-        textLog.setEditable(false);
-        JScrollPane scrollPath = new JScrollPane(textLog);
-
+    private JTextArea tvWay;
+    private JPanel drawWayLayout() {
+        tvWay = new JTextArea("");
+        tvWay.setRows(5);
+        tvWay.setEditable(false);
+        JScrollPane scrollPath = new JScrollPane(tvWay);
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new TitledBorder("Đường đi"));
         panel.add(scrollPath, BorderLayout.PAGE_START);
@@ -305,7 +260,7 @@ public class MapLayout extends JFrame implements ActionListener {
         }
 
         if (command == "Open") {
-            actionOpen();
+            openFile();
         }
 
         if (command == "Exit") {
@@ -314,7 +269,7 @@ public class MapLayout extends JFrame implements ActionListener {
 
 
         if (command == "Move") {
-            grawMap.setDraw(3);
+            drawMap.setDraw(3);
         }
 
         if (command == "Update") {
@@ -322,37 +277,36 @@ public class MapLayout extends JFrame implements ActionListener {
         }
 
         if (command == "Save") {
-            actionSave();
+            storeFile();
         }
 
     }
 
-    private void actionSave() {
+    private void storeFile() {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Save graph");
         int select = fc.showSaveDialog(this);
         if (select == 0) {
             String path = fc.getSelectedFile().getPath();
             System.out.println(path);
-            grawMap.write(path);
+            drawMap.write(path);
         }
     }
 
-    private void actionOpen() {
+    private void openFile() {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Open graph");
         int select = fc.showOpenDialog(this);
         if (select == 0) {
             String path = fc.getSelectedFile().getPath();
             System.out.println(path);
-            grawMap.readFile(path);
-            actionUpdate();
+            drawMap.readFile(path);
+            updateLayout();
         }
     }
 
-    private void actionUpdate() {
-        resetDataDijkstra();
-        setDrawResultOrStep(false);
+    private void updateLayout() {
+        setupDataToDijkstra();
         reDraw();
     }
 
@@ -368,12 +322,4 @@ public class MapLayout extends JFrame implements ActionListener {
                 .limit(20)
                 .collect(Collectors.toList());
     }
-
-    private static JFrame createFrame() {
-        JFrame frame = new JFrame("Suggestion Dropdown Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(600, 300));
-        return frame;
-    }
-
 }

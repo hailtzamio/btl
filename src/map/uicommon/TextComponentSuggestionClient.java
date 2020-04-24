@@ -5,9 +5,6 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Matches entire text instead of separate words
- */
 public class TextComponentSuggestionClient implements SuggestionClient<JTextComponent> {
 
     private Function<String, List<String>> suggestionProvider;

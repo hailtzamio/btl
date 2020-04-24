@@ -2,112 +2,105 @@ package map;
 
 import map.model.Pathz;
 import map.model.Position;
-import map.model.Position;
-import map.util.Utils;
 
 import java.util.ArrayList;
 
 public class Dijkstra {
-    private int a[][];
-    private int[] len, p;
-    private int[][] logLen, logP;
-    private boolean[] checkedPointMin;
-    private int infinity, size = 0;
+    private int coList[][];
+    private int[] minPath, previous;
+    private int[][] checkLen, checkP;
+    private boolean[] checkRightPositionShortest;
+    private int infinity, positionSize = 0;
     private ArrayList<Position> positions = new ArrayList<Position>();
     private ArrayList<Pathz> pathzs = new ArrayList<Pathz>();
-    private ArrayList<Integer> arrPointResult;
-    private ArrayList<Integer> arrPointResultStep;
-    private ArrayList<Integer> arrCostResult = new ArrayList<Integer>();
-    private int beginPoint = 0, endPoint = 0;
-    private int numberPointChecked = 0;
-    private boolean step = false;
-    private boolean stop = false;
+    private int fromPosition = 0, toPosition = 0;
+    private int positionCheck = 0;
     private boolean mapType = false;
     private String path = "";
-    private ArrayList<Integer> arrTempPoint;
 
     public Dijkstra() {
 
     }
 
-    public void input() {
+    public void setData() {
         infinity = 1;
-        size = positions.size();
-        a = new int[size][size];
-        len = new int[size];
-        p = new int[size];
-        checkedPointMin = new boolean[size];
+        positionSize = positions.size();
+        coList = new int[positionSize][positionSize];
+        minPath = new int[positionSize];
+        previous = new int[positionSize];
+        checkRightPositionShortest = new boolean[positionSize];
 
         for (int i = 1; i < pathzs.size(); i++) {
-            a[pathzs.get(i).getIndexPointA()][pathzs.get(i)
-                    .getIndexPointB()] = pathzs.get(i).getPath();
+            coList[pathzs.get(i).getPositionA()][pathzs.get(i)
+                    .getPositionB()] = pathzs.get(i).getPath();
             if (!mapType) {
-                a[pathzs.get(i).getIndexPointB()][pathzs.get(i)
-                        .getIndexPointA()] = pathzs.get(i).getPath();
+                coList[pathzs.get(i).getPositionB()][pathzs.get(i)
+                        .getPositionA()] = pathzs.get(i).getPath();
             }
             infinity += pathzs.get(i).getPath();
         }
-    }
 
-    public void processInput() {
-        for (int i = 1; i < size; i++) {
-            for (int j = 1; j < size; j++) {
-                if (a[i][j] == 0 && i != j) {
-                    a[i][j] = infinity;
+        for (int i = 1; i < positionSize; i++) {
+            for (int j = 1; j < positionSize; j++) {
+                if (coList[i][j] == 0 && i != j) {
+                    coList[i][j] = infinity;
                 }
             }
         }
     }
 
     private void initValue() {
-        logLen = new int[size][size];
-        logP = new int[size][size];
-        for (int i = 1; i < size; i++) {
-            len[i] = infinity;
-            checkedPointMin[i] = false;
-            p[i] = 0;
+        checkLen = new int[positionSize][positionSize];
+        checkP = new int[positionSize][positionSize];
+        for (int i = 1; i < positionSize; i++) {
+            minPath[i] = infinity;
+            checkRightPositionShortest[i] = false;
+            previous[i] = 0;
         }
-        logLen[0] = len;
-        logP[0] = p;
-        len[beginPoint] = 0;
+        checkLen[0] = minPath;
+        checkP[0] = previous;
+        minPath[fromPosition] = 0;
     }
 
     public int dijkstra() {
         initValue();
         int i = 1, k = 0;
         while (checkContinue(k)) {
-            for (i = 1; i < size; i++)
-                if (!checkedPointMin[i] && len[i] < infinity)
+            for (i = 1; i < positionSize; i++)
+                if (!checkRightPositionShortest[i] && minPath[i] < infinity)
                     break;
-            if (i >= size)
+            if (i >= positionSize)
                 break;
-            for (int j = 1; j < size; j++)
-                if (!checkedPointMin[j] && len[i] > len[j])
+            for (int j = 1; j < positionSize; j++)
+                if (!checkRightPositionShortest[j] && minPath[i] > minPath[j])
                     i = j;
 
-            checkedPointMin[i] = true;
-            for (int j = 1; j < size; j++) {
-                if (!checkedPointMin[j] && len[i] + a[i][j] < len[j]) {
-                    len[j] = len[i] + a[i][j];
-                    p[j] = i;
+            checkRightPositionShortest[i] = true;
+            for (int j = 1; j < positionSize; j++) {
+                if (!checkRightPositionShortest[j] && minPath[i] + coList[i][j] < minPath[j]) {
+                    minPath[j] = minPath[i] + coList[i][j];
+                    previous[j] = i;
                 }
 
-                logLen[k][j] = len[j];
-                logP[k][j] = p[j];
+                checkLen[k][j] = minPath[j];
+                checkP[k][j] = previous[j];
             }
+
             k++;
         }
-        if (endPoint == -1) {
-            numberPointChecked = positions.size();
+
+        if (toPosition == -1) {
+            positionCheck = positions.size();
             return 0;
         }
-        numberPointChecked = k;
-        return len[endPoint];
+
+        positionCheck = k;
+        return minPath[toPosition];
     }
 
     private boolean checkContinue(int k) {
-        if (endPoint != -1) {
-            return (!checkedPointMin[endPoint]);
+        if (toPosition != -1) {
+            return (!checkRightPositionShortest[toPosition]);
         }
         return (k < positions.size() - 1);
     }
@@ -118,47 +111,47 @@ public class Dijkstra {
         String finalPath = "";
         ArrayList<Integer> mlist = new ArrayList<>();
 
-        if (endPoint > 0 && len[endPoint] < infinity) {
-            int i = endPoint;
-            while (i != beginPoint) {
+        if (toPosition > 0 && minPath[toPosition] < infinity) {
+            int i = toPosition;
+            while (i != fromPosition) {
                 path = " > " + i + path;
                 mlist.add(i);
-                i = p[i];
+                i = previous[i];
             }
 
 			for (int i1 = mlist.size() - 1; i1 >= 0; i1--) {
 				path2 = path2 + " > " + positions.get(mlist.get(i1)).getName();
 			}
 
-            finalPath = "Chiều dài " + len[endPoint] + "m" + " : " + i + path2;
+            finalPath = "Chiều dài " + minPath[toPosition] + "m" + " : " + path2;
         } else {
             finalPath = "Không thể đi";
         }
         return finalPath;
     }
 
-    public int getNumberPointChecked() {
-        return numberPointChecked;
+    public int getPositionCheck() {
+        return positionCheck;
     }
 
-    public void setNumberPointChecked(int numberPointChecked) {
-        this.numberPointChecked = numberPointChecked;
+    public void setPositionCheck(int positionCheck) {
+        this.positionCheck = positionCheck;
     }
 
-    public int[][] getLogLen() {
-        return logLen;
+    public int[][] getCheckLen() {
+        return checkLen;
     }
 
-    public void setLogLen(int[][] logLen) {
-        this.logLen = logLen;
+    public void setCheckLen(int[][] checkLen) {
+        this.checkLen = checkLen;
     }
 
-    public int[][] getLogP() {
-        return logP;
+    public int[][] getCheckP() {
+        return checkP;
     }
 
-    public void setLogP(int[][] logP) {
-        this.logP = logP;
+    public void setCheckP(int[][] checkP) {
+        this.checkP = checkP;
     }
 
     public boolean isMapType() {
@@ -169,124 +162,60 @@ public class Dijkstra {
         this.mapType = mapType;
     }
 
-    public boolean[] getCheckedPointMin() {
-        return checkedPointMin;
+    public boolean[] getCheckRightPositionShortest() {
+        return checkRightPositionShortest;
     }
 
-    public void setCheckedPointMin(boolean[] checkedPointMin) {
-        this.checkedPointMin = checkedPointMin;
+    public void setCheckRightPositionShortest(boolean[] checkRightPositionShortest) {
+        this.checkRightPositionShortest = checkRightPositionShortest;
     }
 
-    public ArrayList<Integer> getArrPointResultStep() {
-        return arrPointResultStep;
-    }
-
-    public void setArrPointResultStep(ArrayList<Integer> arrPointResultStep) {
-        this.arrPointResultStep = arrPointResultStep;
-    }
-
-    public int[] getP() {
-        return p;
-    }
-
-    public void setP(int[] p) {
-        this.p = p;
-    }
-
-    public ArrayList<Integer> getArrTempPoint() {
-        return arrTempPoint;
-    }
-
-    public void setArrTempPoint(ArrayList<Integer> arrTempPoint) {
-        this.arrTempPoint = arrTempPoint;
-    }
-
-    public boolean isStop() {
-        return stop;
-    }
-
-    public void setStop(boolean stop) {
-        this.stop = stop;
-    }
-
-    public boolean isStep() {
-        return step;
-    }
-
-    public void setStep(boolean step) {
-        this.step = step;
+    public int[] getPrevious() {
+        return previous;
     }
 
     public int getInfinity() {
         return infinity;
     }
 
-    public void setInfinity(int infinity) {
-        this.infinity = infinity;
+    public int[] getMinPath() {
+        return minPath;
     }
 
-    public int[] getLen() {
-        return len;
+    public void setMinPath(int[] minPath) {
+        this.minPath = minPath;
     }
 
-    public void setLen(int[] len) {
-        this.len = len;
+    public int[][] getCoList() {
+        return coList;
     }
 
-    public int[][] getA() {
-        return a;
+    public void setCoList(int[][] coList) {
+        this.coList = coList;
     }
 
-    public void setA(int[][] a) {
-        this.a = a;
+    public int getFromPosition() {
+        return fromPosition;
     }
 
-    public int getBeginPoint() {
-        return beginPoint;
+    public void setFromPosition(int fromPosition) {
+        this.fromPosition = fromPosition;
     }
 
-    public void setBeginPoint(int beginPoint) {
-        this.beginPoint = beginPoint;
+    public int getToPosition() {
+        return toPosition;
     }
 
-    public int getEndPoint() {
-        return endPoint;
+    public void setToPosition(int toPosition) {
+        this.toPosition = toPosition;
     }
 
-    public void setEndPoint(int endPoint) {
-        this.endPoint = endPoint;
-    }
-
-    public ArrayList<Position> getArrMyPoint() {
-        return positions;
-    }
-
-    public void setArrMyPoint(ArrayList<Position> arrMyPoint) {
+    public void setPositions(ArrayList<Position> arrMyPoint) {
         this.positions = arrMyPoint;
     }
 
-    public ArrayList<Pathz> getArrMyLine() {
-        return pathzs;
-    }
-
-    public void setArrMyLine(ArrayList<Pathz> arrMyLine) {
+    public void setPathzs(ArrayList<Pathz> arrMyLine) {
         this.pathzs = arrMyLine;
-    }
-
-    public ArrayList<Integer> getArrPointResult() {
-        return arrPointResult;
-    }
-
-    public void setArrPointResult(ArrayList<Integer> arrPointResult) {
-        this.arrPointResult = arrPointResult;
-    }
-
-    public ArrayList<Integer> getArrCostResult() {
-        return arrCostResult;
-    }
-
-    public void setArrCostResult(ArrayList<Integer> arrCostResult) {
-        this.arrCostResult = arrCostResult;
     }
 
 }

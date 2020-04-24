@@ -110,7 +110,7 @@ point-258-162-Võ Văn Tần_HCR
 point-234-189-Võ Văn Tần_Pasteur
 point-203-221-Võ Văn Tần_Nam Kỳ Khởi Nghĩa
 point-169-259-Võ Văn Tần_Lê Quý Đôn
-point-313-301-Võ Văn Tần_Trần Quốc Thảo
+point-132-302-Võ Văn Tần_Trần Quốc Thảo
 point-94-342-Võ Văn Tần_Trương Định
 point-76-327-Nguyễn Thị Diệu_Trương Định
 point-59-343-Nguyễn Thị Diệu
@@ -167,11 +167,47 @@ point-156-33-Hẻm 66A
 point-168-34-Hẻm 66A/1
 point-248-1-Phùng Khắc Khoan
 point-280-1-Nguyễn Văn Thủ
-point-307-1-Đinh Tiên Hoàng
-point-442-1-Nguyễn Đình Chiểu
+point-440-2-Đinh Tiên Hoàng
+point-345-2-Nguyễn Đình Chiểu
 point-473-1-Nguyễn thị Minh Khai
-point-344-2-Mạc Đĩnh Chi
+point-302-1-Mạc Đĩnh Chi
 point-63-178-Hẻm 6/1
+point-270-150-Hồ Con Rùa
+point-252-327-Dinh Độc Lập
+point-96-304-Bảo Tàng Chứng Tích Chiến Tranh
+point-202-252-Trường THPT Lê Quý Đôn
+point-447-259-Trường THPT Chuyên Trần Đại Nghĩa
+point-371-246-Nhà Thờ Đức Bà
+point-395-98-Phúc Long Coffee & Tea Express
+point-304-124-Pizza 4P's Hai Bà Trưng
+point-214-155-Trường Đại Học Kiến Trúc TPHCM
+point-509-32-Trường Đại Học Khoa Học Xã Hội và Nhân Văn
+point-482-19-Đài Truyền Hình TPHCM
+point-455-3-Sân vận động Hoa Lư
+point-192-5-Công viên Lê Văn Tám
+point-88-64-Viện Pasteur TPHCM
+point-23-292-Bệnh Viện Da Liễu TPHCM
+point-237-134-Trường Đại Học Kinh Tế TPHCM Cơ Sở A
+point-307-165-7Eleven
+point-266-208-Cửa Hàng xăng dầu số 38
+point-187-221-Nhà Hàng Buffet Victory
+point-152-188-Co.opMart Nguyễn Đình Chiểu
+point-133-214-Phòng Trà We
+point-279-102-Sở Công Thương TPHCM
+point-271-66-Hoang Yen Vietnamese Cuisine
+point-247-17-Tổng Lãnh sự quán Vương Quốc Campuchia
+point-195-32-Siêu Thị Thế Giới di động
+point-211-106-The Coffee House Signature
+point-208-136-Family Mart
+point-444-144-Tổng Lãnh sự quán Đức
+point-457-154-Basilico Italian Restaurant
+point-498-100-Tổng Lãnh sự quán Anh
+point-515-237-IDECAF Viện Trao Đổi Văn Hoá với Pháp
+point-481-297-Sở Giáo Dục & Đào Tạo TPHCM
+point-454-306-H&M Vincom Center
+point-440-338-Uỷ Ban Nhân Dân TPHCM
+point-468-88-Khoa Dược Đại Học Y Dược TPHCM
+point-432-104-Nhà Hát Bến Thành
 line-459-16-434-40-1-33-140-Nguyễn Thị Minh Khai
 line-392-84-368-113-2-13-130-Nguyễn Thị Minh Khai
 line-339-142-303-183-3-4-130-Nguyễn Thị Minh Khai
@@ -180,7 +216,7 @@ line-267-221-238-253-5-6-140-Nguyễn Thị Minh Khai
 line-238-253-201-290-6-7-120-Nguyễn Thị Minh Khai
 line-392-84-359-53-2-8-130-Mạc Đĩnh Chi
 line-359-53-326-20-8-9-130-Mạc Đĩnh Chi
-line-392-84-443-132-2-10-200-Mạc Đĩnh Chi
+line-392-84-443-132-2-10-250-Mạc Đĩnh Chi
 line-443-132-461-151-10-11-80-Mạc Đĩnh Chi
 line-368-113-335-79-13-12-130-Phùng Khắc Khoan
 line-335-79-359-53-12-8-100-Trần Cao Vân
@@ -200,7 +236,7 @@ line-391-186-411-205-20-63-80-Hai Bà Trưng
 line-441-233-452-192-21-18-140-Nguyễn Du
 line-477-267-441-233-22-21-160-Hai Bà Trưng
 line-516-224-477-267-23-22-180-Lý Tự Trọng
-line-556-176-516-224-24-23-200-Lý Tự Trọng
+line-556-176-516-224-24-23-250-Lý Tự Trọng
 line-368-113-339-142-13-3-120-Nguyễn Thị Minh Khai
 line-494-118-461-151-25-11-160-Nguyễn Du
 line-481-39-459-16-26-1-120-Đinh Tiên Hoàng
@@ -211,16 +247,19 @@ line-525-82-505-62-29-28-90-Tôn Đức Thắng
 line-525-82-494-118-29-25-150-Nguyễn Du
 line-573-123-525-82-30-29-150-Tôn Đức Thắng
 line-540-160-573-123-31-30-150-Nguyễn Trung Ngạn
-line-540-160-494-118-31-25-200-Chu Mạnh Trinh
+line-540-160-494-118-31-25-250-Chu Mạnh Trinh
 line-540-160-556-176-31-24-80-Chu Mạnh Trinh
 line-591-139-556-176-32-24-150-Lý Tự Trọng
 line-591-139-573-123-32-30-80-Tôn Đức Thắng
 line-395-2-434-40-34-33-150-Hẻm 18
+line-537-248-524-264-42-46-30-Lê Thánh Tôn
+line-537-248-558-264-42-43-70-Thái Văn Lung
 line-434-40-410-66-33-35-140-Nguyễn Thị Minh Khai
 line-410-66-392-84-35-2-70-Nguyễn Thị Minh Khai
 line-410-66-373-30-35-36-150-Hẻm 18B15
 line-583-192-556-176-37-24-120-Chu Mạnh Trinh
 line-557-224-538-192-38-37-140-Lê Thánh Tôn
+line-331-206-299-251-51-52-100-Alexander De Rhodes
 line-588-248-557-224-39-38-130-Hẻm 15B
 line-544-237-557-224-40-38-60-Lê Thánh Tôn
 line-577-261-544-237-41-40-150-Hẻm 8A
@@ -315,18 +354,18 @@ line-236-119-165-52-104-103-250-Phạm Ngọc Thạch
 line-236-119-270-81-104-16-130-Nguyễn Đình Chiểu
 line-258-140-236-119-105-104-100-Phạm Ngọc Thạch
 line-305-111-280-139-15-106-110-Trần Cao Vân
-line-280-139-258-140-106-105-40-Vòng Xoay Hồ Con Rùa
+line-280-139-258-140-106-105-40-Công Trường Quốc Tế
 line-303-183-280-161-4-107-100-Phạm Ngọc Thạch
-line-280-161-280-139-107-106-40-Vòng Xoay Hồ Con Rùa
-line-258-162-280-162-108-107-40-Vòng Xoay Hồ Con Rùa
-line-258-162-258-140-108-105-50-Vòng Xoay Hồ Con Rùa
+line-280-161-280-139-107-106-40-Công Trường Quốc Tế
+line-258-162-280-162-108-107-40-Công Trường Quốc Tế
+line-258-162-258-140-108-105-50-Công Trường Quốc Tế
 line-234-189-258-162-109-108-120-Võ Văn Tần
 line-203-221-234-189-110-109-120-Võ Văn Tần
 line-238-253-203-221-6-110-120-Nam Kỳ Khởi Nghĩa
 line-169-259-201-290-111-7-120-Lê Quý Đôn
 line-169-259-203-221-111-110-130-Võ Văn Tần
-line-131-301-169-259-112-111-130-Võ Văn tần
-line-94-342-131-301-113-112-120-Võ Văn Tần
+line-132-302-169-259-112-111-130-Võ Văn tần
+line-94-342-132-302-113-112-120-Võ Văn Tần
 line-76-327-94-342-114-113-60-Trương Định
 line-59-343-76-327-115-114-80-Nguyễn Thị Diệu
 line-234-189-199-159-109-116-110-Pasteur
@@ -336,7 +375,7 @@ line-169-190-199-159-117-116-110-Nguyễn Đình Chiểu
 line-134-227-169-190-118-117-120-Nguyễn Đình Chiểu
 line-169-259-134-227-111-118-110-Lê Quý Đôn
 line-97-268-134-227-119-118-120-Nguyễn Đình Chiểu
-line-313-301-97-268-112-119-110-Trần Quốc Thảo
+line-132-302-97-268-112-119-110-Trần Quốc Thảo
 line-76-289-97-268-120-119-80-Nguyễn Đình Chiểu
 line-57-309-76-289-121-120-70-Nguyễn Đình Chiểu
 line-76-327-57-309-114-121-80-Trương Định
@@ -392,6 +431,7 @@ line-120-54-113-77-157-155-60-Hẻm 230
 line-131-41-130-54-158-157-40-Hẻm 230
 line-90-21-131-41-159-158-58-120-Hẻm 230
 line-90-21-71-39-159-151-60-Võ Thị Sáu
+line-90-21-71-39-159-151-60-Võ Thị Sáu
 line-99-11-90-21-160-159-10-Võ Thị Sáu
 line-76-1-99-11-161-160-50-Hẻm 160
 line-110-2-99-11-162-160-50-Võ Thị Sáu
@@ -403,8 +443,8 @@ line-156-33-146-19-165-164-40-Hẻm 66A
 line-168-34-156-33-166-165-20-Hẻm 66A/1
 line-265-17-248-1-95-167-40-Phùng Khắc Khoan
 line-265-17-180-1-95-168-40-Nguyễn Văn Thủ
-line-459-16-307-1-1-169-40-Đinh Tiên Hoàng
-line-326-20-442-1-9-170-40-Nguyễn Đình Chiểu
+line-459-16-440-2-1-169-40-Đinh Tiên Hoàng
+line-326-20-345-2-9-170-40-Nguyễn Đình Chiểu
 line-459-16-473-1-1-171-40-Nguyễn Thị Minh Khai
-line-326-20-344-2-9-172-40-Mạc Đĩnh Chi
+line-326-20-302-1-9-172-40-Mạc Đĩnh Chi
 line-67-202-63-178-133-173-50-Hẻm 6/1

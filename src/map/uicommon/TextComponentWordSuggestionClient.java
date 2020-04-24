@@ -8,9 +8,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Matches individual words instead of complete text
- */
 public class TextComponentWordSuggestionClient implements SuggestionClient<JTextComponent> {
     private Function<String, List<String>> suggestionProvider;
 
