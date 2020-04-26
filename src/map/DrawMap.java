@@ -1,7 +1,7 @@
 package map;
 
 import map.model.Pathz;
-import map.model.MyData;
+import map.model.Data;
 import map.model.Position;
 import map.util.Utils;
 
@@ -15,7 +15,7 @@ import java.io.*;
 
 class DrawMap extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
-    private MyData data = new MyData();
+    private Data data = new Data();
     private int minPath[];
     private int coList[][];
     private int previous[];
@@ -28,9 +28,8 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
     private int draw = 0;
     private Color bgColor = Color.lightGray, kmColor = Color.BLACK, indexColor = Color.black, lineColor = Color.white, foundWayColor = Color.GREEN;
     private int sizePath = 6, sizeFoundWay = 6;
-    private boolean drawResult = false;
+    private boolean drawPath = false;
     private boolean reDraw = false;
-    private boolean resetGraph = false;
     private boolean typeMap = false;
     private boolean checkedPointMin[];
     private int fromPosition, toPosition;
@@ -95,7 +94,8 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
         setBackground(bgColor);
         Graphics2D g2d = (Graphics2D) g;
         loadMap(g2d);
-        if (drawResult) {
+
+        if (drawPath) {
             drawMap(g2d);
         }
 
@@ -116,10 +116,19 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
             data.getPositions().add(mp);
             repaint();
         }
-        System.out.println("Clicked " + e.getX() + "," + e.getY());
+
         if (e.getButton() == MouseEvent.BUTTON3) {
             isRightClick = true;
             pointRight = e.getPoint();
+        } else {
+            pointBeginLine = e.getPoint();
+            positionNumber = getIndexFromPoint(pointBeginLine);
+            if (positionNumber != -1 && positionNumber < data.getPositions().size()) {
+                String name = data.getPositions().get(positionNumber).getName();
+                System.out.println(name);
+                JOptionPane.showMessageDialog(null, name, "Địa Điểm",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 
@@ -130,18 +139,17 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
         point = e.getPoint();
         e.getPoint();
         e.getPoint();
-
-        positionNumber = getIndexFromPoint(pointBeginLine);
-        if (positionNumber != -1 && positionNumber < data.getPositions().size()) {
-            String nam = data.getPositions().get(positionNumber).getName();
-            System.out.println(nam);
-        }
-
+        System.out.println(fromPosition + " to " + toPosition);
+//        if (fromPosition == 0) {
+//            fromPosition = getIndexFromPoint(pointBeginLine);
+//        } else {
+//            toPosition = getIndexFromPoint(pointBeginLine);
+//        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        updateLine();
+        updatePath();
         repaint();
         movePosition = true;
     }
@@ -184,13 +192,11 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
             }
         }
 
-        String nam = data.getPositions().get(positionNumber).getName();
-        System.out.println(nam);
         if (draw == 2 || draw == 1 || positionNumber >= 0) {
             int dx = e.getX() - point.x;
             int dy = e.getY() - point.y;
 
-            if ((draw == 1 || draw == 3) && positionNumber > 0) {
+            if ((draw == 1) && positionNumber > 0) {
                 Ellipse2D.Float el = data.getPositions()
                         .get(positionNumber).getEl();
 
@@ -199,7 +205,7 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
                 data.getPositions().get(positionNumber).setEl(el);
             }
 
-            updateLine();
+            updatePath();
             repaint();
             point.x += dx;
             point.y += dy;
@@ -212,33 +218,27 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
 
     public void write(String path) {
         try {
-
-//
-//            for (int i = 0; i < data.getPositions().size(); i++) {
-//                data.getPositions().get(i).setName("NAme");
-//            }
-
             path += ".dij";
             FileOutputStream f = new FileOutputStream(path);
             ObjectOutputStream oStream = new ObjectOutputStream(f);
             oStream.writeObject(data);
             oStream.close();
-            JOptionPane.showMessageDialog(null, "Save success", "Save success",
+            JOptionPane.showMessageDialog(null, "Thành công", "Thành công",
                     JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Save", "Error save file",
+            JOptionPane.showMessageDialog(null, "Lưu", "Lỗi",
                     JOptionPane.OK_OPTION);
             System.out.println("Error save file\n" + e.toString());
         }
     }
 
     public void readFile(String path) {
-        MyData data = null;
+        Data data = null;
         FileInputStream fi;
         try {
             fi = new FileInputStream(path);
             ObjectInputStream oiStream = new ObjectInputStream(fi);
-            data = (MyData) oiStream.readObject();
+            data = (Data) oiStream.readObject();
             oiStream.close();
             this.data = data;
 
@@ -269,13 +269,13 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
                     JOptionPane.ERROR_MESSAGE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,
-                    "Error read file\nFile open must is *.dij", "Error",
+                    "Error", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Error read class", "Error",
+            JOptionPane.showMessageDialog(null, "Error", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("done read");
+        System.out.println("finish");
     }
 
     protected int getIndexFromPoint(Point point) {
@@ -288,12 +288,25 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
         return -1;
     }
 
+    protected void setCheckedPosition(int i) {
+        data.getPositions().get(i).setPositionCheck(true);
+        repaint();
+    }
+
+    protected void resetCheckedPosition() {
+        for (int i = 1; i < data.getPositions().size(); i++) {
+            data.getPositions().get(i).setPositionCheck(false);
+        }
+
+        System.out.println("========== Reset Point");
+    }
+
     private Line2D.Double drawLine(Point p1, Point p2) {
         Line2D.Double l = new Line2D.Double(p1.x, p1.y, p2.x, p2.y);
         return l;
     }
 
-    private void updateLine() {
+    private void updatePath() {
         for (int i = 0; i < data.getPathzs().size(); i++) {
             data.getPathzs()
                     .get(i)
@@ -309,87 +322,62 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
 
     private void loadMap(Graphics2D g2d) {
         for (int i = 0; i < data.getPathzs().size(); i++) {
-            data.getPathzs().get(i).drawLine(g2d, data.getPositions().get(data.getPathzs().get(i).getPositionA()).getP(), data.getPositions().get(data.getPathzs().get(i).getPositionB()).getP(),
-                    kmColor, lineColor, sizePath, typeMap);
+            data.getPathzs().get(i).drawPath(g2d, data.getPositions().get(data.getPathzs().get(i).getPositionA()).getP(), data.getPositions().get(data.getPathzs().get(i).getPositionB()).getP(),
+                    kmColor, lineColor, sizePath, typeMap,data.getPathzs().get(i).isShowStreetName());
         }
 
         for (int i = 1; i < data.getPositions().size(); i++) {
-            data.getPositions().get(i).draw(g2d, i, lineColor, indexColor);
+            data.getPositions().get(i).drawFinalMap(g2d, i, "",Color.BLACK, data.getPositions().get(i).isPositionCheck());
         }
     }
 
     private void drawMap(Graphics2D g2d) {
-        if (checkedPointMin[toPosition]) {
-            String cost;
-            int i = toPosition;
-            while (i != fromPosition) {
-                cost = String.valueOf(minPath[i]);
-                Pathz ml = new Pathz(drawLine(data.getPositions().get(previous[i])
-                        .getP(), data.getPositions().get(i).getP()), i, previous[i],
-                        coList[previous[i]][i], "");
+        if(toPosition != -1) {
+            if (checkedPointMin[toPosition]) {
+                String km;
+                int i = toPosition;
+                while (i != fromPosition) {
+                    km = String.valueOf(minPath[i]);
+                    Pathz ml = new Pathz(drawLine(data.getPositions().get(previous[i])
+                            .getP(), data.getPositions().get(i).getP()), i, previous[i],
+                            coList[previous[i]][i], "",true);
 
-                ml.drawLine(g2d, data.getPositions().get(previous[i]).getP(), data
-                                .getPositions().get(i).getP(), kmColor, foundWayColor,
-                        sizeFoundWay, typeMap);
+                    ml.drawPath(g2d, data.getPositions().get(previous[i]).getP(), data
+                                    .getPositions().get(i).getP(), kmColor, foundWayColor,
+                            sizeFoundWay, typeMap,data.getPathzs().get(i).isShowStreetName());
 
+                    data.getPositions()
+                            .get(i)
+                            .drawFinalMap(g2d, i, km,
+                                    foundWayColor,data.getPositions().get(i).isPositionCheck());
+
+                    i = previous[i];
+                }
+
+                km = String.valueOf(minPath[i]);
                 data.getPositions()
-                        .get(i)
-                        .drawFinalMap(g2d, i, foundWayColor, indexColor, cost,
-                                foundWayColor);
+                        .get(fromPosition)
+                        .drawFinalMap(g2d, fromPosition,
+                                km, foundWayColor,data.getPositions().get(i).isPositionCheck());
 
-                i = previous[i];
             }
-
-            cost = String.valueOf(minPath[i]);
-            data.getPositions()
-                    .get(fromPosition)
-                    .drawFinalMap(g2d, fromPosition, foundWayColor, indexColor,
-                            cost, foundWayColor);
         }
     }
 
-    public void readDemoTest(int demo) {
+    public void readFile() {
         this.data = utils.getDataFromFile();
-        updateLine();
-    }
-
-    public int getDrawWith() {
-        return drawWith;
-    }
-
-    public void setDrawWith(int drawWith) {
-        this.drawWith = drawWith;
-    }
-
-    public int getDrawHeight() {
-        return drawHeight;
-    }
-
-    public void setDrawHeight(int drawHeight) {
-        this.drawHeight = drawHeight;
+        updatePath();
     }
 
     protected boolean isRightClick = false;
     protected Point pointRight;
 
-    public MyData getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(MyData data) {
+    public void setData(Data data) {
         this.data = data;
-    }
-
-    public boolean isResetGraph() {
-        return resetGraph;
-    }
-
-    public void setResetGraph(boolean resetGraph) {
-        this.resetGraph = resetGraph;
-    }
-
-    public boolean isReDraw() {
-        return reDraw;
     }
 
     public void setReDraw(boolean reDraw) {
@@ -424,8 +412,8 @@ class DrawMap extends JPanel implements MouseListener, MouseMotionListener, Mous
         this.minPath = minPath;
     }
 
-    public void setDrawResult(boolean drawResult) {
-        this.drawResult = drawResult;
+    public void setDrawPath(boolean drawPath) {
+        this.drawPath = drawPath;
     }
 
     public void setDraw(int draw) {

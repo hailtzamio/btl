@@ -3,7 +3,7 @@ package map.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MyData implements Serializable {
+public class Data implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Position> positions;
@@ -27,7 +27,7 @@ public class MyData implements Serializable {
 		this.pathzs = pathzs;
 	}
 
-	public MyData() {
+	public Data() {
 		positions = new ArrayList<Position>();
 		pathzs = new ArrayList<Pathz>();
 	}

@@ -1,9 +1,9 @@
 package map;
 
+import map.uicommon.Popup;
 import map.uicommon.SuggestionDropDownDecorator;
 import map.uicommon.TextComponentSuggestionClient;
 import map.uicommon.TextComponentWordSuggestionClient;
-import map.util.RandomUtil;
 import map.util.Utils;
 
 import javax.swing.*;
@@ -20,15 +20,14 @@ import java.util.stream.Collectors;
 public class MapLayout extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
-    private JComboBox<String> cbbGraphDemo = new JComboBox<String>();
     private JButton btnSearch;
     private JPanel mainPanel = new JPanel();
     private DrawMap drawMap = new DrawMap();
     private int fromPosition = 0, toPosition = 0;
     private boolean mapType = false;
 
-    int WIDTH_SELECT, HEIGHT_SELECT;
-    Dijkstra dijkstra = new Dijkstra();
+    private int WIDTH_SELECT, HEIGHT_SELECT;
+    private Dijkstra dijkstra = new Dijkstra();
 
     public static void main(String[] args) {
         new MapLayout("Bong Map");
@@ -38,13 +37,16 @@ public class MapLayout extends JFrame implements ActionListener {
         setTitle(title);
         setLayout(new BorderLayout(5, 5));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         add(drawMenu(), BorderLayout.PAGE_START);
         add(drawFromToPosition(), BorderLayout.WEST);
         add(drawMapLayout(), BorderLayout.CENTER);
-        add(drawWayLayout(), BorderLayout.PAGE_END);
+        setPreferredSize(new Dimension(3650, 1503));
         pack();
         setVisible(true);
         readTextFileAndShowMap();
+
+        drawPopup();
     }
 
     private JMenuBar drawMenu() {
@@ -67,11 +69,19 @@ public class MapLayout extends JFrame implements ActionListener {
         return menuBar;
     }
 
+
+    private JTextArea lbWay;
     private JPanel drawFromToPosition() {
 
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel panelTop = new JPanel(new GridLayout(6, 1, 5, 5));
+        JPanel panelTop = new JPanel(new GridLayout(3, 1, 5, 5));
         JPanel panelBottom = new JPanel(new BorderLayout());
+        JScrollPane scroll = new JScrollPane(lbWay = new JTextArea());
+        scroll.setPreferredSize(panelTop.getPreferredSize());
+        panelBottom.add(scroll);
+
+        panel.add(panelTop, BorderLayout.PAGE_START);
+        panel.add(panelBottom, BorderLayout.CENTER);
 
         makeJTextFieldGoFrom(panelTop, "Điểm đi", tfBegin);
         makeJTextFieldGoFrom(panelTop, "Điểm đến", tfEnd);
@@ -87,6 +97,7 @@ public class MapLayout extends JFrame implements ActionListener {
 
     private void makeJTextFieldGoFrom(JPanel panelTop, String title, JTextField tf) {
         JPanel panelSmall = new JPanel(new GridLayout(1, 2, 15, 5));
+        panelSmall.setPreferredSize( new Dimension( 200, 30 ) );
         panelSmall.setBorder(new EmptyBorder(0, 15, 0, 5));
         setupSuggestJTextField(panelSmall, tf);
         JPanel panel = new JPanel(new BorderLayout());
@@ -97,7 +108,6 @@ public class MapLayout extends JFrame implements ActionListener {
 
     JTextField tfBegin = new JTextField(10);
     JTextField tfEnd = new JTextField(10);
-
     private void setupSuggestJTextField(JPanel panel, JTextField tf) {
         SuggestionDropDownDecorator.decorate(tf,
                 new TextComponentSuggestionClient(MapLayout::getSuggestions));
@@ -117,6 +127,7 @@ public class MapLayout extends JFrame implements ActionListener {
         panel.add(panelRun);
     }
 
+    private Popup popupMenu;
     private JPanel drawMapLayout() {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(new TitledBorder(""));
@@ -125,7 +136,40 @@ public class MapLayout extends JFrame implements ActionListener {
         panel.setLayout(new BorderLayout());
         panel.add(mainPanel, BorderLayout.WEST);
         panel.add(drawMap, BorderLayout.CENTER);
+
+        popupMenu = drawPopup();
+        drawMap.setComponentPopupMenu(popupMenu);
         return panel;
+    }
+
+    private Popup drawPopup() {
+        Popup popup = new Popup();
+
+        popup.add(createMenuItem("Điểm đi", 0, 0));
+        popup.add(createMenuItem("Điểm đến", 0, 0));
+
+        return popup;
+    }
+
+    private void showPopupCurrentLocation() {
+        if (toPosition == 0) {
+            fromPosition = drawMap.getIndexFromPoint(popupMenu.getPoint());
+            drawMap.setCheckedPosition(fromPosition);
+        }
+    }
+
+    private void showPopupDestination() {
+        if (fromPosition > 0) {
+            toPosition = drawMap.getIndexFromPoint(popupMenu.getPoint());
+            drawMap.setCheckedPosition(toPosition);
+            findWay(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Thông báo", "Điểm đi chưa được chọn",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        fromPosition = 0;
+        toPosition = 0;
     }
 
     private JMenuItem createMenuItem(String title, int keyEvent, int event) {
@@ -171,8 +215,7 @@ public class MapLayout extends JFrame implements ActionListener {
     }
 
     private void readTextFileAndShowMap() {
-        int demo = cbbGraphDemo.getSelectedIndex();
-        drawMap.readDemoTest(demo);
+        drawMap.readFile();
         updateView();
     }
 
@@ -221,63 +264,57 @@ public class MapLayout extends JFrame implements ActionListener {
         dijkstra.setToPosition(toPosition);
     }
 
-    private void findWay() {
-        if (isStartToFindWay()) {
+    private void findWay(boolean isFind) {
+        if (isFind) {
             setupDataToDijkstra();
             setPositionFromTo();
             dijkstra.dijkstra();
-            drawMap.setDrawResult(true);
+            drawMap.setDrawPath(true);
             drawMap.setCoList(dijkstra.getCoList());
-            tvWay.setText(dijkstra.getPath());
+            lbWay.setText(dijkstra.getPath());
             drawMap.setPrevious(dijkstra.getPrevious());
             drawMap.setInfinity(dijkstra.getInfinity());
             drawMap.setMinPath(dijkstra.getMinPath());
             drawMap.setCheckedPointMin(dijkstra.getCheckRightPositionShortest());
             drawMap.repaint();
+            drawMap.resetCheckedPosition();
         }
-    }
-
-    private JTextArea tvWay;
-    private JPanel drawWayLayout() {
-        tvWay = new JTextArea("");
-        tvWay.setRows(5);
-        tvWay.setEditable(false);
-        JScrollPane scrollPath = new JScrollPane(tvWay);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(new TitledBorder("Đường đi"));
-        panel.add(scrollPath, BorderLayout.PAGE_START);
-        panel.setPreferredSize(new Dimension(WIDTH_SELECT * 7 / 2,
-                HEIGHT_SELECT / 2));
-        return panel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
 
+        String actionKey = e.getActionCommand();
         if (e.getSource() == btnSearch) {
-            findWay();
+            findWay(isStartToFindWay());
         }
 
-        if (command == "Open") {
+        if (actionKey.equals("Open")) {
             openFile();
         }
 
-        if (command == "Exit") {
+        if (actionKey.equals("Exit")) {
             System.exit(0);
         }
 
-
-        if (command == "Move") {
-            drawMap.setDraw(3);
+        if (actionKey.equals("Move")) {
+            drawMap.setDraw(1);
         }
 
-        if (command == "Update") {
+        if (actionKey.equals("Update")) {
             updateView();
         }
 
-        if (command == "Save") {
+        if (actionKey.equals("Save")) {
             storeFile();
+        }
+
+        if (actionKey.equals("Điểm đến")) {
+            showPopupDestination();
+        }
+
+        if (actionKey.equals("Điểm đi")) {
+            showPopupCurrentLocation();
         }
 
     }
@@ -295,7 +332,7 @@ public class MapLayout extends JFrame implements ActionListener {
 
     private void openFile() {
         JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Open graph");
+        fc.setDialogTitle("Open");
         int select = fc.showOpenDialog(this);
         if (select == 0) {
             String path = fc.getSelectedFile().getPath();
@@ -309,9 +346,6 @@ public class MapLayout extends JFrame implements ActionListener {
         setupDataToDijkstra();
         reDraw();
     }
-
-    private static List<String> words =
-            RandomUtil.getAddress();
 
     private static List<String> getSuggestions(String input) {
         if (input.isEmpty()) {

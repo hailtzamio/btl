@@ -10,21 +10,32 @@ public class Pathz implements Serializable {
     private int positionA, positionB;
     private int path;
     private String streetName;
+
+    public boolean isShowStreetName() {
+        return isShowStreetName;
+    }
+
+    public void setShowStreetName(boolean showStreetName) {
+        isShowStreetName = showStreetName;
+    }
+
+    private boolean isShowStreetName;
     final int radius = 10;
 
-    public Pathz(Line2D.Double l, int positionA, int positionB, int path, String streetName) {
+    public Pathz(Line2D.Double l, int positionA, int positionB, int path, String streetName, boolean isShowStreetName) {
         this.path = path;
         this.positionA = positionA;
         this.positionB = positionB;
         this.l = l;
         this.streetName = streetName;
+        this.isShowStreetName = isShowStreetName;
     }
 
-    public void drawLine(Graphics2D g, Point p1, Point p2, Color colorkm,
-                         Color colorLine, int size, boolean type) {
+    public void drawPath(Graphics2D g, Point p1, Point p2, Color colorkm,
+                         Color colorLine, int size, boolean type, boolean isShowStreetName) {
         String streetName = "";
         String km = "";
-        if (path < 0) {
+        if (path <= 0) {
             streetName = "";
             km = "";
         } else {
@@ -41,14 +52,33 @@ public class Pathz implements Serializable {
             double y = p2.y - radius * Math.sin(theta);
         }
 
-//        g.setColor(colorCost);
-//        g.drawString(streetName, (int) (Math.abs(p1.x + p2.x) / 2),
-//                (int) (p1.y + p2.y) / 2);
+        g.setColor(colorkm);
+
+        // Show Street name
+        if (isShowStreetName) {
+//            g.drawString(streetName, (int) (Math.abs(p1.x + p2.x) / 2),
+//                    (int) (p1.y + p2.y) / 2);
+
+
+            int centerX = p1.x + ((p2.x - p1.x) / 2);
+            int centerY = p1.y + ((p2.y - p1.y) / 2);
+            double pRote = Math.toDegrees(Math.atan2(centerY - p2.y, centerX - p2.x) + Math.PI);
+            if ((pRote > 90) && (pRote < 270)) {
+                pRote += 180;
+            }
+
+            double angle = Math.toRadians(pRote);
+            Font smallFont = new Font("Monospaced", Font.PLAIN, 12);
+            FontMetrics fm = g.getFontMetrics(smallFont);
+            int sw = fm.stringWidth(streetName);
+            g.rotate(angle, centerX, centerY);
+            g.drawString(streetName, centerX - (sw / 2), centerY - 10);
+            g.rotate(-angle, centerX, centerY);
+        }
+
+        // Show km
 //        g.drawString(km, (int) (Math.abs(p1.x + 10 + p2.x + 10) / 2),
 //                (int) (p1.y + 10 + p2.y + 10) / 2);
-//        Font currentFont = g.getFont();
-//        Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.95F);
-//        g.setFont(newFont);
     }
 
 

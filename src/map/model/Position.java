@@ -10,9 +10,19 @@ public class Position implements Serializable {
 	private Ellipse2D.Float el = new Ellipse2D.Float();
 	private java.awt.Point p = new java.awt.Point();
 	private  String name;
+
+	public boolean isPositionCheck() {
+		return isPositionCheck;
+	}
+
+	public void setPositionCheck(boolean positionCheck) {
+		isPositionCheck = positionCheck;
+	}
+
+	private boolean isPositionCheck = false;
 	final int radius = 5;
-	public void drawPositionName(Graphics2D g, int index, Color colorIndex) {
-		g.setColor(colorIndex);
+	public void drawPositionName(Graphics2D g, int index) {
+		g.setColor(Color.BLACK);
 		int len = (int) g.getFontMetrics()
 				.getStringBounds(String.valueOf(index), g).getWidth();
 		int stringHeight = (int) g.getFontMetrics()
@@ -28,21 +38,27 @@ public class Position implements Serializable {
 //		g.drawString(String.valueOf(10), (int) p.x - r / 5, (int) p.y - r);
 	}
 
-	public void drawPositionPoint(Graphics2D g, int index, Color colorPoint) {
-		g.setColor(colorPoint);
+	public void drawPositionPoint(Graphics2D g, int index, boolean isPositionCheck) {
+		if(isPositionCheck) {
+			g.setColor(Color.RED);
+//			position.setPositionCheck(true);
+		} else  {
+			g.setColor(Color.ORANGE);
+		}
+
 		g.fill(el);
 	}
 
-	public void drawFinalMap(Graphics2D g, int index, Color colorPoint, Color colorIndex, String cost, Color colorCostResult) {
-		drawPositionPoint(g, index, colorPoint);
-		drawPositionName(g, index, colorIndex);
-		drawPath(g, cost, colorCostResult);
+	public void drawFinalMap(Graphics2D g, int index, String km, Color kmColor, boolean isPositionCheck) {
+		drawPositionPoint(g, index, isPositionCheck);
+		drawPositionName(g, index);
+		drawPath(g, km, kmColor);
 	}
 
-	public void draw(Graphics2D g, int index, Color colorPoint, Color colorIndex) {
-		drawPositionPoint(g, index, colorPoint);
-		drawPositionName(g, index, colorIndex);
-	}
+//	public void draw(Graphics2D g, int index, Color colorPoint, Color colorIndex, boolean isPositionCheck) {
+//		drawPositionPoint(g, index, colorPoint, isPositionCheck);
+//		drawPositionName(g, index, colorIndex);
+//	}
 
 	public Ellipse2D.Float getEl() {
 		return el;

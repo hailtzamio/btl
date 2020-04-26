@@ -1,6 +1,6 @@
 package map.util;
 
-import map.model.MyData;
+import map.model.Data;
 import map.model.Pathz;
 import map.model.Position;
 
@@ -16,17 +16,16 @@ import java.util.List;
 
 public class Utils {
 
-    ArrayList<Position> myPoints = new ArrayList<>();
-    public MyData getDataFromFile() {
-        MyData myData = new MyData();
+    ArrayList<Position> positions = new ArrayList<>();
+
+    public Data getDataFromFile() {
+        Data data = new Data();
         try {
 
-            Path pathToFile = Paths.get("test.txt");
+            Path pathToFile = Paths.get("test1.txt");
             System.out.println(pathToFile.toAbsolutePath());
-
             List<String> productLines = Files.readAllLines(pathToFile.toAbsolutePath(), StandardCharsets.UTF_8);
-
-            ArrayList<Pathz> myLines = new ArrayList<>();
+            ArrayList<Pathz> pathzs = new ArrayList<>();
             for (String line : productLines) {
 
                 String[] tokens = line.split("-");
@@ -39,10 +38,14 @@ public class Utils {
                     int pointA = Integer.parseInt(tokens[5]);
                     int pointB = Integer.parseInt(tokens[6]);
                     int km = Integer.parseInt(tokens[7]);
-//                    int km2 = Math.round(km*100);
 
-                    Pathz myLine = new Pathz(new Line2D.Double(x1, y1, x2, y2), pointA, pointB, km, tokens[8]);
-                    myLines.add(myLine);
+                    if(tokens.length == 9) {
+                        Pathz pathz = new Pathz(new Line2D.Double(x1, y1, x2, y2), pointA, pointB, km, tokens[8],false);
+                        pathzs.add(pathz);
+                    } else {
+                        Pathz pathz = new Pathz(new Line2D.Double(x1, y1, x2, y2), pointA, pointB, km, tokens[8],true);
+                        pathzs.add(pathz);
+                    }
                 }
 
                 if (tokens[0].startsWith("point")) {
@@ -50,16 +53,16 @@ public class Utils {
                     float y = Float.parseFloat(tokens[2]) + 100;
                     String name = tokens[3];
 //                    float h = Float.parseFloat(tokens[4]);
-                    Position myPoint = new Position(new Ellipse2D.Float(x, y, 10, 10), name);
-                    myPoints.add(myPoint);
+                    Position myPoint = new Position(new Ellipse2D.Float(x, y, 12, 12), name);
+                    positions.add(myPoint);
                 }
 
             }
 
-            myData.setPathzs(myLines);
-            myData.setPositions(myPoints);
+            data.setPathzs(pathzs);
+            data.setPositions(positions);
 
-            for (Position product : myPoints) {
+            for (Position product : positions) {
                 System.out.println(product.getName());
             }
 
@@ -67,11 +70,11 @@ public class Utils {
                 IOException e) {
             e.printStackTrace();
         }
-        return myData;
+        return data;
     }
 
     public ArrayList<Position> getPositions() {
-        return myPoints;
+        return positions;
     }
 
     public static boolean isInteger(String s) {
@@ -89,11 +92,10 @@ public class Utils {
         try {
             Double.parseDouble(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
-
 }
 
 

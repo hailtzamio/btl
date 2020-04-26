@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="map:jar">
+    <output-path>$PROJECT_DIR$/../BongProject</output-path>
+    <root id="archive" name="map.jar">
+      <element id="module-output" name="map" />
+    </root>
+  </artifact>
+</component>

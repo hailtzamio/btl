@@ -3,7 +3,9 @@ package map;
 import map.model.Pathz;
 import map.model.Position;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Dijkstra {
     private int coList[][];
@@ -107,6 +109,116 @@ public class Dijkstra {
 
     public String getPath() {
         path = "";
+        String finalPath = "";
+        ArrayList<Integer> mlist = new ArrayList<>();
+
+        if (toPosition > 0 && minPath[toPosition] < infinity) {
+            int i = toPosition;
+            while (i != fromPosition) {
+                path = " > " + i + path;
+                mlist.add(i);
+                i = previous[i];
+            }
+
+            String pathList = "";
+            for (int i1 = mlist.size() - 1; i1 >= 0; i1--) {
+                if (mlist.size() > i1 + 1) {
+                    pathList = pathList + "-" + mlist.get(i1) + "," + mlist.get(i1 + 1) + "-";
+                }
+            }
+
+            if ((pathList.length() > 0)) {
+                pathList = pathList.substring(0, pathList.length() - 1);
+                pathList = pathList.substring(1);
+            }
+
+            List<String> enoughPathList = new ArrayList<String>(Arrays.asList(pathList.split("--")));
+            String[] temps = enoughPathList.get(0).split(",");
+
+            if (temps.length > 1) {
+                enoughPathList.add(0, fromPosition + "," + temps[0]);
+                enoughPathList.add(0, fromPosition + "," + temps[1]);
+            }
+
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            ArrayList<String> pathNameList = new ArrayList<>();
+            ArrayList<Way> ways = new ArrayList<>();
+            for (int i1 = 0; i1 < enoughPathList.size(); i1++) {
+                for (int i2 = 0; i2 < pathzs.size(); i2++) {
+                    String compare1 = pathzs.get(i2).getPositionA() + "," + pathzs.get(i2).getPositionB();
+                    String compare2 = pathzs.get(i2).getPositionB() + "," + pathzs.get(i2).getPositionA();
+                    if (enoughPathList.get(i1).equals(compare1) || enoughPathList.get(i1).equals(compare2)) {
+                        Pathz pathz = pathzs.get(i2);
+                        ways.add(new Way(pathz.getStreetName(), pathz.getPath()));
+                        pathNameList.add(pathz.getStreetName());
+                    }
+                }
+            }
+
+            pathNameList = removeDuplicates(pathNameList);
+            for (int i2 = 0; i2 < pathNameList.size(); i2++) {
+                String name = pathNameList.get(i2);
+                int path = 0;
+                for (int i1 = 0; i1 < ways.size(); i1++) {
+                    if (ways.get(i1).getName().equals(name)) {
+                        path = path + ways.get(i1).getPath();
+                        map.put(name,path);
+                    }
+                }
+            }
+
+            String finalWay = "";
+            for (int i1 = 0; i1 < pathNameList.size(); i1++) {
+                finalWay = finalWay + " \n > " + pathNameList.get(i1) + " ( "  + map.get(pathNameList.get(i1)) + "m )";
+            }
+
+            finalPath = "Chiều dài " + minPath[toPosition] + "m" + " :  \n" + finalWay;
+
+        } else {
+            finalPath = "Không thể đi";
+        }
+        return finalPath;
+    }
+
+    class Way {
+        String name;
+        int path;
+
+        public Way(String name, int path) {
+            this.name = name;
+            this.path = path;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getPath() {
+            return path;
+        }
+
+        public void setPath(int path) {
+            this.path = path;
+        }
+    }
+
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list) {
+        ArrayList<T> newList = new ArrayList<T>();
+        for (T element : list) {
+            if (!newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+        return newList;
+    }
+
+    public String getPathTemp() {
+        path = "";
         String path2 = "";
         String finalPath = "";
         ArrayList<Integer> mlist = new ArrayList<>();
@@ -119,9 +231,9 @@ public class Dijkstra {
                 i = previous[i];
             }
 
-			for (int i1 = mlist.size() - 1; i1 >= 0; i1--) {
-				path2 = path2 + " > " + positions.get(mlist.get(i1)).getName();
-			}
+            for (int i1 = mlist.size() - 1; i1 >= 0; i1--) {
+                path2 = path2 + " > " + positions.get(mlist.get(i1)).getName();
+            }
 
             finalPath = "Chiều dài " + minPath[toPosition] + "m" + " : " + path2;
         } else {
